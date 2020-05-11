@@ -1,4 +1,12 @@
-[Table("USER_POSTER")]
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Model
+{
+    [Table("USER_POSTER")]
     public class UserPoster
     {
         [Key]
@@ -31,3 +39,4 @@
         [InverseProperty(nameof(Pais.UserPoster))]
         public virtual Pais NombrePaisNavigation { get; set; }
     }
+}
