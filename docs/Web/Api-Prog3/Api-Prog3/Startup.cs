@@ -41,6 +41,7 @@ namespace Api_Prog3
 
             services.AddTransient<ICategoriaService, CategoriaService>();
             services.AddTransient<ICiudadService, CiudadService>();
+            services.AddTransient<IPaisService, PaisService>();
 
             services.AddControllers();
         }
