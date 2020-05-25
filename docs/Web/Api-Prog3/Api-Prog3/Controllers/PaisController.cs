@@ -25,7 +25,7 @@ namespace Api_Prog3.Controllers
             return Ok(_IPaisService.GetAll());
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_IPaisService.Get(id));
@@ -43,7 +43,7 @@ namespace Api_Prog3.Controllers
             return Ok(_IPaisService.Update(model));
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             return Ok(_IPaisService.Delete(id));

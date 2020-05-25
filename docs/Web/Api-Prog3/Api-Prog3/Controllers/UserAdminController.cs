@@ -25,7 +25,7 @@ namespace Api_Prog3.Controllers
             return Ok(_userAdminService.GetAll());
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_userAdminService.Get(id));
@@ -43,7 +43,7 @@ namespace Api_Prog3.Controllers
             return Ok(_userAdminService.Update(model));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             return Ok(_userAdminService.Delete(id));
