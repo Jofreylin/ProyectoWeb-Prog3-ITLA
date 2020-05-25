@@ -18,11 +18,14 @@ namespace WebApp_Prog3.Models
 
         [Key]
         [Column("ID")]
+        [Display(Name = "ID")]
         public int Id { get; set; }
         [Required]
         [StringLength(60)]
+        [Display(Name = "Nombre de ciudad")]
         public string Nombre { get; set; }
         [Column("Nombre_Pais")]
+        [Display(Name = "Pais de la ciudad")]
         public int NombrePais { get; set; }
 
         [ForeignKey(nameof(NombrePais))]
