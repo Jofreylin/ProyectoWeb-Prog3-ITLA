@@ -19,9 +19,11 @@ namespace WebApp_Prog3.Models
 
         [Key]
         [Column("ID")]
+        [Display(Name = "ID")]
         public int Id { get; set; }
         [Required]
         [StringLength(60)]
+        [Display(Name = "Nombre de pais")]
         public string Nombre { get; set; }
 
         [InverseProperty("NombrePaisNavigation")]
