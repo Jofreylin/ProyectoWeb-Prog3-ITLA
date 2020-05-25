@@ -94,7 +94,7 @@ namespace Service
                 originalModel.Usuario = model.Usuario;
                 originalModel.Email = model.Email;
                 originalModel.Contraseña = model.Contraseña;
-                originalModel.FechaCreacion = model.FechaCreacion;
+                
 
                 _projectDbContext.Update(originalModel);
                 _projectDbContext.SaveChanges();
