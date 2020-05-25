@@ -88,7 +88,6 @@ namespace Service
                 originalModel.Id = model.Id;
                 originalModel.Contra = model.Contra;
                 originalModel.Email = model.Email;
-                originalModel.FechaCreacion = model.FechaCreacion;
                 originalModel.NombreCalle = model.NombreCalle;
                 originalModel.NombreCiudad = model.NombreCiudad;
                 originalModel.NombreEmpresa = model.NombreEmpresa;

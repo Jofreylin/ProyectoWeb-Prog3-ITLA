@@ -102,7 +102,6 @@ namespace Service
                 originalModel.Poster = model.Poster;
                 originalModel.Descripcion = model.Descripcion;
                 originalModel.DireccionUrl = model.DireccionUrl;
-                originalModel.FechaCreacion = model.FechaCreacion;
 
                 _projectDbContext.Update(originalModel);
                 _projectDbContext.SaveChanges();
