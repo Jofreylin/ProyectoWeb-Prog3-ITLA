@@ -8,6 +8,8 @@ using Service;
 
 namespace Api_Prog3.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class TipoTrabajoController : Controller
         {
             private readonly ITipoTrabajoService _ITipoTrabajoService;
