@@ -8,6 +8,8 @@ using Service;
 
 namespace Api_Prog3.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserPosterController : Controller
     {
          private readonly IUserPosterService _IUserPosterService;

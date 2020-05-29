@@ -8,9 +8,9 @@ using Service;
 
 namespace Api_Prog3.Controllers
 {
-    public class PostController : Controller
-    {
-        public class PosterController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PosterController : Controller
         {
             private readonly IPostService _IPostService;
 
@@ -49,5 +49,5 @@ namespace Api_Prog3.Controllers
                 return Ok(_IPostService.Delete(id));
             }
         }
-    }
+    
 }
