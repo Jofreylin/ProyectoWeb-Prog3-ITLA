@@ -10,11 +10,11 @@ namespace Api_Prog3.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PosterController : Controller
+    public class PostController : Controller
         {
             private readonly IPostService _IPostService;
 
-            public PosterController(IPostService PostService)
+            public PostController(IPostService PostService)
             {
                 _IPostService = PostService;
             }
