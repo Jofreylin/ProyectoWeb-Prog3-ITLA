@@ -7,14 +7,16 @@ using WebApp_Prog3.Models;
 
 namespace WebApp_Prog3.Controllers
 {
-    public class PostController : Controller
+    public class CategoriaController : Controller
     {
-        // GET: Post
+        // GET: Categoria
         public ActionResult Index()
         {
-            PostClient postClient = new PostClient();
-            ViewBag.listPosts = postClient.GetAll();
+            CategoriaClient categoriaClient = new CategoriaClient();
+            ViewBag.listCategories = categoriaClient.GetAll();
             return View();
         }
+
+
     }
 }
