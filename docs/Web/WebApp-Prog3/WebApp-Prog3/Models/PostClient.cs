@@ -1,39 +1,39 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
-using System.Net;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
+using System.Web;
 
 namespace WebApp_Prog3.Models
 {
-    public class UserPosterClient
+    public class PostClient
     {
         private string originalURL = "";
 
-        public IEnumerable<UserPoster> GetAll()
+        public IEnumerable<Post> GetAll()
         {
             try
             {
-                var lista = new List<UserPoster>();
+                var lista = new List<Post>();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                HttpResponseMessage response = client.GetAsync("Post").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    lista = JsonConvert.DeserializeObject<List<Post>>(result);
                     return lista;
                 }
                 else
                 {
                     return null;
                 }
-            }catch(Exception e)
+            }
+            catch(Exception e)
             {
                 return null;
             }
