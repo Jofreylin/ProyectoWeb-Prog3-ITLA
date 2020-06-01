@@ -10,7 +10,13 @@ namespace WebApp_Prog3.Models
 {
     public class CategoriaClient
     {
-        private string originalURL = "https://localhost:44390/api/";
+        private string originalURL = "";
+
+        public CategoriaClient()
+        {
+            URL direccion = new URL();
+            originalURL = direccion.GetURL();
+        }
 
         public IEnumerable<Categoria> GetAll()
         {

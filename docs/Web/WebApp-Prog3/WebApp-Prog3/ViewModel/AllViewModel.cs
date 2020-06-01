@@ -9,5 +9,6 @@ namespace WebApp_Prog3.ViewModel
     public class AllViewModel
     {
         public Categoria Categoria { get; set; }
+        public Post Post { get; set; }
     }
 }
