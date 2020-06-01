@@ -3,25 +3,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-    <div>
-        <table class="table">
-            <thead>
+@Html.ActionLink("Añadir nuevo", "Create")
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoria in ViewBag.listCategories)
+            {
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
+                    <td>@categoria.Id</td>
+                    <td>@categoria.Nombre</td>
+                    <td>
+                        <a href="@Url.Action("Delete","Categoria",new {id = categoria.Id })">Delete</a>
+                        <a href="@Url.Action("Edit","Categoria",new {id = categoria.Id })">| Edit</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var categoria in ViewBag.listCategories)
-                {
-                    <tr>
-                        <td>@categoria.Id</td>
-                        <td>@categoria.Nombre</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
+</div>
 
 

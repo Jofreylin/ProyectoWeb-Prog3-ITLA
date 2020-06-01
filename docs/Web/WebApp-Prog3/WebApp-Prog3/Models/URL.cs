@@ -7,7 +7,7 @@ namespace WebApp_Prog3.Models
 {
     public class URL
     {
-        private readonly string direccion = "https://localhost:44390/api/";
+        private readonly string direccion = "https://apiprog3.azurewebsites.net/api/";
 
         public string GetURL()
         {
