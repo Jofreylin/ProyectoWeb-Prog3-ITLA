@@ -10,7 +10,7 @@ namespace WebApp_Prog3.Controllers
 {
     public class CategoriaController : Controller
     {
-        // GET: Categoria
+        // GET ALL: Categoria
         public ActionResult Index()
         {
             CategoriaClient categoriaClient = new CategoriaClient();
@@ -18,15 +18,26 @@ namespace WebApp_Prog3.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(AllViewModel avm)
+        [HttpGet]
+        public ActionResult Create()
         {
-            CategoriaClient categoriaClient = new CategoriaClient();
-            categoriaClient.Add(avm.Categoria);
-            return RedirectToAction("Index");
+            return View();
         }
 
-        [HttpDelete]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Categoria c)
+        {
+            if (ModelState.IsValid)
+            {
+                CategoriaClient categoriaClient = new CategoriaClient();
+                categoriaClient.Add(c);
+                return RedirectToAction("Index");
+            }
+            return View(c);
+        }
+
+        
         public ActionResult Delete(int id)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
@@ -37,18 +48,26 @@ namespace WebApp_Prog3.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            
             CategoriaClient categoriaClient = new CategoriaClient();
-            AllViewModel avm = new AllViewModel();
-            avm.Categoria = categoriaClient.Get(id);
-            return View("Edit", avm);
+            Categoria c = new Categoria();
+            c = categoriaClient.Get(id);
+            return View("Edit", c);
         }
 
-        [HttpPut]
-        public ActionResult Update(AllViewModel avm)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Categoria c)
         {
-            CategoriaClient categoriaClient = new CategoriaClient();
-            categoriaClient.Update(avm.Categoria);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                CategoriaClient categoriaClient = new CategoriaClient();
+                categoriaClient.Update(c);
+                return RedirectToAction("Index");
+            }
+            return View(c);
         }
+
+
     }
 }

@@ -33,6 +33,7 @@ namespace WebApp_Prog3.Models
                     var result = response.Content.ReadAsStringAsync().Result;
                     lista = JsonConvert.DeserializeObject<List<Categoria>>(result);
                     return lista;
+                    
                 }
                 else
                 {
@@ -72,18 +73,18 @@ namespace WebApp_Prog3.Models
             }
         }
 
+    
         public bool Add(Categoria model)
         {
             try
             {
-                var lista = new Categoria();
+                
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.PostAsJsonAsync("categoria", model);
-                var result = response.Result;
-                return result.IsSuccessStatusCode;
+                HttpResponseMessage response = client.PostAsJsonAsync("categoria", model).Result;
+                return response.IsSuccessStatusCode;
             }
             catch (Exception e)
             {
@@ -100,9 +101,9 @@ namespace WebApp_Prog3.Models
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.PutAsJsonAsync("categoria/" + model.Id, model);
-                var result = response.Result;
-                return result.IsSuccessStatusCode;
+                HttpResponseMessage response = client.PutAsJsonAsync("categoria", model).Result;
+                
+                return response.IsSuccessStatusCode;
             }
             catch (Exception e)
             {
