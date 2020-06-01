@@ -13,6 +13,12 @@ namespace WebApp_Prog3.Models
     {
         private string originalURL = "";
 
+        public UserPosterClient()
+        {
+            URL direccion = new URL();
+            originalURL = direccion.GetURL();
+        }
+
         public IEnumerable<UserPoster> GetAll()
         {
             try

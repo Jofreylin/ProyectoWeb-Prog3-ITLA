@@ -19,7 +19,7 @@ namespace WebApp_Prog3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(AllViewModel avm)
+        public ActionResult Create(AllViewModel avm)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
             categoriaClient.Add(avm.Categoria);
