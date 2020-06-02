@@ -19,8 +19,9 @@ namespace WebApp_Prog3.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string message)
         {
+            ViewBag.Message = message;
             return View();
         }
 
@@ -28,13 +29,24 @@ namespace WebApp_Prog3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria c)
         {
-            if (ModelState.IsValid)
+            CategoriaClient categoriaClient = new CategoriaClient();
+            if (categoriaClient.findNombre(c.Nombre))
             {
-                CategoriaClient categoriaClient = new CategoriaClient();
-                categoriaClient.Add(c);
-                return RedirectToAction("Index");
+                return Create("Ya existe una categoria con ese nombre");
             }
-            return View(c);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    categoriaClient.Add(c);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(c);
+                }
+            }
+            
         }
 
         
@@ -43,6 +55,12 @@ namespace WebApp_Prog3.Controllers
             CategoriaClient categoriaClient = new CategoriaClient();
             categoriaClient.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(string message)
+        {
+            ViewBag.Message = message;
+            return View();
         }
 
         [HttpGet]
@@ -59,13 +77,26 @@ namespace WebApp_Prog3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Categoria c)
         {
-            if (ModelState.IsValid)
+            CategoriaClient categoriaClient = new CategoriaClient();
+            if (categoriaClient.findNombre(c.Nombre))
             {
-                CategoriaClient categoriaClient = new CategoriaClient();
-                categoriaClient.Update(c);
-                return RedirectToAction("Index");
+                return Edit("Ya existe una categoria con ese nombre");
             }
-            return View(c);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+
+                    categoriaClient.Update(c);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(c);
+                }
+            }
+           
+            
         }
 
 
