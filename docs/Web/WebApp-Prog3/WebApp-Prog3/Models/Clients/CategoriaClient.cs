@@ -46,6 +46,35 @@ namespace WebApp_Prog3.Models
             }
         }
 
+        public bool findNombre(string nombre)
+        {
+            try
+            {
+                var lista = new List<Categoria>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Categoria").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<Categoria>>(result);
+                    var elemento = lista.Single(x => x.Nombre == nombre);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public Categoria Get(int id)
         {
             try
