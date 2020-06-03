@@ -44,5 +44,117 @@ namespace WebApp_Prog3.Models
                 return null;
             }
         }
+
+        public bool FindCorreo(string email)
+        {
+            try
+            {
+                var lista = new List<UserPoster>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Email == email);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public UserPoster Get(int id)
+        {
+            try
+            {
+                var lista = new UserPoster();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Userposter/" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<UserPoster>(result);
+                    return lista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public bool Add(UserPoster model)
+        {
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.PostAsJsonAsync("userposter", model).Result;
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Update(UserPoster model)
+        {
+            try
+            {
+                var lista = new UserPoster();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.PutAsJsonAsync("userposter", model).Result;
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var lista = new UserPoster();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = client.DeleteAsync("userposter/" + id);
+                var result = response.Result;
+                return result.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
