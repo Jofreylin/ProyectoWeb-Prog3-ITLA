@@ -8,9 +8,11 @@ using WebApp_Prog3.ViewModel;
 
 namespace WebApp_Prog3.Controllers
 {
+    [Route("[controller]")]
     public class CategoriaController : Controller
     {
         // GET ALL: Categoria
+        [Route("[controller]")]
         public ActionResult Index()
         {
             CategoriaClient categoriaClient = new CategoriaClient();

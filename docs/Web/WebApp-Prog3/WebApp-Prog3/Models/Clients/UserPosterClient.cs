@@ -74,6 +74,35 @@ namespace WebApp_Prog3.Models
             }
         }
 
+        public bool FindCorreoContra(string email, string contra)
+        {
+            try
+            {
+                var lista = new List<UserPoster>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Email == email && x.Contra == contra);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public UserPoster Get(int id)
         {
             try
