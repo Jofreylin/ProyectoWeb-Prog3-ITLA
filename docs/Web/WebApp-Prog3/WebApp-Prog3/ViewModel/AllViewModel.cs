@@ -10,5 +10,6 @@ namespace WebApp_Prog3.ViewModel
     {
         public Categoria Categoria { get; set; }
         public Post Post { get; set; }
+        public UserPoster UserPoster { get; set; }
     }
 }
