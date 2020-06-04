@@ -32,5 +32,7 @@ namespace WebApp_Prog3.Models
         [StringLength(90)]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        
     }
 }

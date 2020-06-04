@@ -1,66 +1,38 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
-using System.Net;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
+using System.Web;
 
-namespace WebApp_Prog3.Models
+namespace WebApp_Prog3.Models.Clients
 {
-    public class UserPosterClient
+    public class UserAdminClient
     {
         private string originalURL = "";
 
-        public UserPosterClient()
+        public UserAdminClient()
         {
             URL direccion = new URL();
             originalURL = direccion.GetURL();
         }
 
-        public IEnumerable<UserPoster> GetAll()
+        public IEnumerable<UserAdmin> GetAll()
         {
             try
             {
-                var lista = new List<UserPoster>();
+                var lista = new List<UserAdmin>();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                HttpResponseMessage response = client.GetAsync("UserAdmin").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    lista = JsonConvert.DeserializeObject<List<UserAdmin>>(result);
                     return lista;
-                }
-                else
-                {
-                    return null;
-                }
-            }catch(Exception e)
-            {
-                return null;
-            }
-        }
-
-        public UserPoster FindCorreo(UserPoster model)
-        {
-            try
-            {
-                var lista = new UserPoster();
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(originalURL);
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("UserPoster/" + model.Id).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<UserPoster>(result);
-                    return lista ;
-
                 }
                 else
                 {
@@ -73,21 +45,48 @@ namespace WebApp_Prog3.Models
             }
         }
 
-        public UserPoster FindCorreoContra(string email, string contra)
+        public UserAdmin FindUser(UserAdmin model)
         {
             try
             {
-                var lista = new List<UserPoster>();
+                var lista = new UserAdmin();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                HttpResponseMessage response = client.GetAsync("UserAdmin/" + model.Id).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
-                    var elemento = lista.Single(x => x.Email == email && x.Contra == contra);
+                    lista = JsonConvert.DeserializeObject<UserAdmin>(result);
+                    return lista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public UserAdmin FindUserContra(string usuario, string contra)
+        {
+            try
+            {
+                var lista = new List<UserAdmin>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserAdmin").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserAdmin>>(result);
+                    var elemento = lista.Single(x => x.Usuario == usuario && x.Contraseña == contra);
                     return elemento;
 
                 }
@@ -102,20 +101,20 @@ namespace WebApp_Prog3.Models
             }
         }
 
-        public UserPoster Get(int id)
+        public UserAdmin Get(int id)
         {
             try
             {
-                var lista = new UserPoster();
+                var lista = new UserAdmin();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("Userposter/" + id).Result;
+                HttpResponseMessage response = client.GetAsync("UserAdmin/" + id).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<UserPoster>(result);
+                    lista = JsonConvert.DeserializeObject<UserAdmin>(result);
                     return lista;
                 }
                 else
@@ -129,7 +128,7 @@ namespace WebApp_Prog3.Models
             }
         }
 
-        public bool Add(UserPoster model)
+        public bool Add(UserAdmin model)
         {
             try
             {
@@ -138,7 +137,7 @@ namespace WebApp_Prog3.Models
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("userposter", model).Result;
+                HttpResponseMessage response = client.PostAsJsonAsync("UserAdmin", model).Result;
                 return response.IsSuccessStatusCode;
             }
             catch (Exception e)
@@ -147,16 +146,16 @@ namespace WebApp_Prog3.Models
             }
         }
 
-        public bool Update(UserPoster model)
+        public bool Update(UserAdmin model)
         {
             try
             {
-                var lista = new UserPoster();
+                var lista = new UserAdmin();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PutAsJsonAsync("userposter", model).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("UserAdmin", model).Result;
 
                 return response.IsSuccessStatusCode;
             }
@@ -170,12 +169,12 @@ namespace WebApp_Prog3.Models
         {
             try
             {
-                var lista = new UserPoster();
+                var lista = new UserAdmin();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.DeleteAsync("userposter/" + id);
+                var response = client.DeleteAsync("UserAdmin/" + id);
                 var result = response.Result;
                 return result.IsSuccessStatusCode;
             }

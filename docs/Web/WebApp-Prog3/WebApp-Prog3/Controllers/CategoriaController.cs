@@ -8,6 +8,7 @@ using WebApp_Prog3.ViewModel;
 
 namespace WebApp_Prog3.Controllers
 {
+    [Authorize(Roles ="Admin")]
     [Route("[controller]")]
     public class CategoriaController : Controller
     {
