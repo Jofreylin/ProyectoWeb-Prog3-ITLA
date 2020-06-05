@@ -9,9 +9,9 @@ using WebApp_Prog3.Models.Clients;
 
 namespace WebApp_Prog3.Controllers
 {
-    public class UserAdminController : Controller
+    public class UserPosterController : Controller
     {
-        // GET: UserAdmin
+        // GET: UserPoster
         public ActionResult Index(string message)
         {
             ViewBag.Message = message;
@@ -29,11 +29,11 @@ namespace WebApp_Prog3.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(!(String.IsNullOrEmpty(login.Usuario) || String.IsNullOrEmpty(login.Contra)))
-                { 
-                    
-                    UserAdminClient adminClient = new UserAdminClient();
-                    var elemento = adminClient.FindUserContra(login.Usuario, login.Contra);
+                if (!(String.IsNullOrEmpty(login.Usuario) || String.IsNullOrEmpty(login.Contra)))
+                {
+
+                    UserPosterClient adminClient = new UserPosterClient();
+                    var elemento = adminClient.FindCorreoContra(login.Usuario, login.Contra);
                     if (elemento != null)
                     {
                         FormsAuthentication.SetAuthCookie(Convert.ToString(elemento.Id), true);
@@ -60,6 +60,7 @@ namespace WebApp_Prog3.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "UserAdmin");
         }
+
 
     }
 }
