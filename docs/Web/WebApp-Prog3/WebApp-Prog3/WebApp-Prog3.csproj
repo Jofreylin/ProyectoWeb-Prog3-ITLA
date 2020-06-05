@@ -318,6 +318,7 @@
     <Content Include="Views\Categoria\Edit.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\UserAdmin\Index.cshtml" />
+    <Content Include="Views\Shared\_Layoutprueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
