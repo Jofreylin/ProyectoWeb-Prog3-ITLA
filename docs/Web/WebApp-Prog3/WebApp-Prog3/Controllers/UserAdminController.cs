@@ -31,6 +31,7 @@ namespace WebApp_Prog3.Controllers
             {
                 if(!(String.IsNullOrEmpty(login.Usuario) || String.IsNullOrEmpty(login.Contra)))
                 { 
+                    
                     UserAdminClient adminClient = new UserAdminClient();
                     var elemento = adminClient.FindUserContra(login.Usuario, login.Contra);
                     if (elemento != null)
