@@ -319,6 +319,8 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\UserAdmin\Index.cshtml" />
     <Content Include="Views\UserPoster\Index.cshtml" />
+    <Content Include="Views\UserAdmin\ProfileAcc.cshtml" />
+    <Content Include="Views\UserPoster\ProfileAcc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -42,26 +42,21 @@ namespace WebApp_Prog3.MyRoleProvider
            
                 UserAdmin admin = new UserAdmin();
                 UserAdminClient adminClient = new UserAdminClient();
-                UserPoster poster = new UserPoster();
-                UserPosterClient posterClient = new UserPosterClient();
 
-                admin.Id = int.Parse(username);
-                poster.Id = int.Parse(username);
-                var elemento = adminClient.FindUser(admin);
+                var elemento = adminClient.FindRole(username);
 
                 string[] result = new string[1];
 
 
-                if (elemento == null)
+                if (elemento)
                 {
-
-                    var elemento2 = posterClient.FindCorreo(poster);
-                    result[0] = "Poster";
+                    result[0] = "Admin";
                     return result;
+                
                 }
                 else
                 {
-                    result[0] = "Admin";
+                    result[0] = "Poster";
                     return result;
                 }
             

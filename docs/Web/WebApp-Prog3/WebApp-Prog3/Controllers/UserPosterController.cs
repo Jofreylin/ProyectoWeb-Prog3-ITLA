@@ -32,12 +32,12 @@ namespace WebApp_Prog3.Controllers
                 if (!(String.IsNullOrEmpty(login.Usuario) || String.IsNullOrEmpty(login.Contra)))
                 {
 
-                    UserPosterClient adminClient = new UserPosterClient();
-                    var elemento = adminClient.FindCorreoContra(login.Usuario, login.Contra);
+                    UserPosterClient posterClient = new UserPosterClient();
+                    var elemento = posterClient.FindCorreoContra(login.Usuario, login.Contra);
                     if (elemento != null)
                     {
-                        FormsAuthentication.SetAuthCookie(Convert.ToString(elemento.Id), true);
-                        return RedirectToAction("Index", "Categoria");
+                        FormsAuthentication.SetAuthCookie(elemento.Email, true);
+                        return RedirectToAction("ProfileAcc", "UserPoster");
                     }
                     else
                     {
@@ -61,6 +61,10 @@ namespace WebApp_Prog3.Controllers
             return RedirectToAction("Index", "UserAdmin");
         }
 
-
+        [Authorize(Roles = "Poster")]
+        public ActionResult ProfileAcc()
+        {
+            return View();
+        }
     }
 }

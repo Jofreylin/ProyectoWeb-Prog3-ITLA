@@ -13,8 +13,14 @@ namespace WebApp_Prog3.Controllers
         public ActionResult Index()
         {
             PostClient postClient = new PostClient();
-            ViewBag.listPosts = postClient.GetAll();
-            return View();
+            return View(postClient.GetAll());
+        }
+
+        public string BuscarPoster(int id)
+        {
+            UserPosterClient userPosterClient = new UserPosterClient();
+            var result = userPosterClient.FindPost(id);
+            return result;
         }
 
         public ActionResult About()
