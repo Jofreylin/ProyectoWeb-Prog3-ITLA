@@ -72,6 +72,35 @@ namespace WebApp_Prog3.Models.Clients
             }
         }
 
+        public bool FindRole(string adminUser)
+        {
+            try
+            {
+                var lista = new List<UserAdmin>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserAdmin").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserAdmin>>(result);
+                    var elemento = lista.Single(x => x.Usuario == adminUser);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public UserAdmin FindUserContra(string usuario, string contra)
         {
             try

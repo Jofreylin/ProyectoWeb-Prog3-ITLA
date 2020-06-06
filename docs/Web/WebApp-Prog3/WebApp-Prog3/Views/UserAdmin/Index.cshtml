@@ -15,11 +15,23 @@
 {
     if (User.Identity.IsAuthenticated)
     {
-        <div class="alert alert-warning" role="alert">
-            Ya estas logeado!<a>@Html.ActionLink(" ~Click aqui~ ", "LogOut", "UserAdmin", null, new { @class = "alert-link" })</a>Para cerrar sesion.
-        </div>
-        <hr />
-        @*<a>@Html.ActionLink("ADMINISTRAR", "Index", "Profile", null, new { @class = "btn btn-danger btn-lg" })</a>*@
+        if (User.IsInRole("Admin"))
+        {
+            <div class="alert alert-warning" role="alert">
+                Ya estas logeado!<a>@Html.ActionLink(" ~Click aqui~ ", "LogOut", "UserAdmin", null, new { @class = "alert-link" })</a>Para cerrar sesion.
+            </div>
+            <hr />
+            <a>@Html.ActionLink("Administrar Cuenta", "ProfileAcc", "UserAdmin", null, new { @class = "btn btn-danger btn-lg" })</a>
+        }
+        else if (User.IsInRole("Poster"))
+        {
+            <div class="alert alert-warning" role="alert">
+                Ya estas logeado como Poster!<a>@Html.ActionLink(" ~Click aqui~ ", "LogOut", "UserPoster", null, new { @class = "alert-link" })</a>Para cerrar sesion.
+            </div>
+            <hr />
+            <a>@Html.ActionLink("Administrar Cuenta", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-danger btn-lg" })</a>
+        }
+
     }
     else
     {

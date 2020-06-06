@@ -1,16 +1,29 @@
-﻿@{
+﻿@model IEnumerable<WebApp_Prog3.Models.Post>
+@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach(var post in ViewBag.listPosts)
-{
-    <div class="card" style="width: 18rem;">
-        <img src="@post.Logo" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@post.NombrePosicion</h5>
-            <p class="card-text">@post.Descripcion</p>
-            <a href="#" class="btn btn-primary">Leer mas</a>
+    <div class="card-group">
+        <div class="row">
+            <div class="col-md-4">
+
+                @foreach (var post in Model)
+                {
+
+                    <div class="card" style="width: 18rem;">
+                        @if (post.Logo != null)
+                        {
+                            <img src="@post.Logo" class="card-img-top" alt="...">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(model => post.NombrePosicion)</h5>
+                            <p class="card-text"><strong>Empresa:</strong> @Html.Action("BuscarPoster", new {id = post.Poster})</p>
+                            <a href="#" class="btn btn-primary">Leer mas</a>
+                        </div>
+                    </div>
+
+                }
+            </div>
         </div>
     </div>
-}
-    

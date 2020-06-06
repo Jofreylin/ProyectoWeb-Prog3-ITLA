@@ -73,6 +73,65 @@ namespace WebApp_Prog3.Models
             }
         }
 
+        public bool FindRole(string posterEmail)
+        {
+            try
+            {
+                var lista = new List<UserPoster>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Email == posterEmail);
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public string FindPost(int id)
+        {
+            try
+            {
+                var lista = new List<UserPoster>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Id == id);
+                    string poster = elemento.NombreEmpresa;
+                    return poster;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public UserPoster FindCorreoContra(string email, string contra)
         {
             try

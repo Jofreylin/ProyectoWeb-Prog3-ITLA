@@ -36,8 +36,8 @@ namespace WebApp_Prog3.Controllers
                     var elemento = adminClient.FindUserContra(login.Usuario, login.Contra);
                     if (elemento != null)
                     {
-                        FormsAuthentication.SetAuthCookie(Convert.ToString(elemento.Id), true);
-                        return RedirectToAction("Index", "Categoria");
+                        FormsAuthentication.SetAuthCookie(elemento.Usuario, true);
+                        return RedirectToAction("ProfileAcc", "UserAdmin");
                     }
                     else
                     {
@@ -61,5 +61,10 @@ namespace WebApp_Prog3.Controllers
             return RedirectToAction("Index", "UserAdmin");
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult ProfileAcc()
+        {
+            return View();
+        }
     }
 }
