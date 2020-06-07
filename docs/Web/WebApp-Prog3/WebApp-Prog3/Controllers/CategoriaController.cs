@@ -39,6 +39,7 @@ namespace WebApp_Prog3.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    c.Nombre = c.Nombre.ToUpper();
                     categoriaClient.Add(c);
                     return RedirectToAction("Index");
                 }
@@ -87,7 +88,7 @@ namespace WebApp_Prog3.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
+                    c.Nombre = c.Nombre.ToUpper();
                     categoriaClient.Update(c);
                     return RedirectToAction("Index");
                 }

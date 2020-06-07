@@ -321,6 +321,7 @@
     <Content Include="Views\UserPoster\Index.cshtml" />
     <Content Include="Views\UserAdmin\ProfileAcc.cshtml" />
     <Content Include="Views\UserPoster\ProfileAcc.cshtml" />
+    <Content Include="Views\Home\Busqueda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

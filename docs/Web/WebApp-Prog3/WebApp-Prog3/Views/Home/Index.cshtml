@@ -2,28 +2,96 @@
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(canPage: true, rowsPerPage: 20);
 }
+    <div class="row">
+        <div class="col-8">
+            @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "form-inline " }))
+            {
 
-    <div class="card-group">
-        <div class="row">
-            <div class="col-md-4">
+                @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-4", @placeholder = "Puesto especifico o empresas" })
+                <button class="btn btn-outline-primary " type="submit">Buscar</button>
 
-                @foreach (var post in Model)
-                {
 
-                    <div class="card" style="width: 18rem;">
-                        @if (post.Logo != null)
-                        {
-                            <img src="@post.Logo" class="card-img-top" alt="...">
-                        }
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(model => post.NombrePosicion)</h5>
-                            <p class="card-text"><strong>Empresa:</strong> @Html.Action("BuscarPoster", new {id = post.Poster})</p>
-                            <a href="#" class="btn btn-primary">Leer mas</a>
-                        </div>
-                    </div>
+                @*<input class="form-control mr-sm-2" type="search" placeholder="Categoria" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>*@
+            }
 
-                }
-            </div>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-success my-2 my-sm-0 float-right">Postear un trabajo</button>
         </div>
     </div>
+<br />
+<div class="row">
+    <div class="col-12">
+        <h5>Puestos de trabajo publicados hoy</h5>
+    </div>
+    <br />
+    @foreach (var cate in ViewBag.ListCategories)
+    {
+        <div class="col-12">
+            <br />
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center">
+                        <strong class=""> @cate.Nombre </strong>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered table-hover bg-white">
+                        <thead class="">
+                            <tr>
+                                <th scope="col">Ubicacion</th>
+                                <th scope="col">Posicion</th>
+                                <th scope="col">Empresa</th>
+                            </tr>
+                        </thead>
+                        @foreach (var post in Model)
+                        {
+
+                            if (post.Categorias == cate.Nombre)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                        <td>@Html.DisplayFor(model => post.Posters)</td>
+                                    </tr>
+                                </tbody>
+                            }
+
+                        }
+                    </table>
+
+                </div>
+                <div class="col-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
