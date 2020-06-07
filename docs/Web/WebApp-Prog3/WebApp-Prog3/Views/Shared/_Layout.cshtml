@@ -38,7 +38,7 @@
                             int count = 0;
                             foreach (var cat in elementos)
                             {
-                                <a class="dropdown-item" href="#">@cat.Nombre</a>
+                                @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha"},new {@class = "dropdown-item" })
                                 count++;
                                 if (count == 4)
                                 {
