@@ -5,28 +5,18 @@
     //grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: true);
 }
 <div class="row">
-    <div class="col-8">
-        @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "form-inline" }))
-        {
-
-            @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-2", @placeholder = "Categorias" })
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-
-            @*<input class="form-control mr-sm-2" type="search" placeholder="Categoria" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>*@
-        }
-    </div>
+    @Html.Partial("_PartialPageBuscador")
 </div>
 <br />
 <div class="row">
     <div class="col-12">
         @if (ViewBag.SortOrder == "Desc")
         {
-            <strong class="float-right">@Html.ActionLink("Ordenar del mas viejo al mas actual", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" })</strong>
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas viejo al mas actual", "Busqueda", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" , pageNumber = ViewBag.PageNumber})</strong>
         }
         else
         {
-            <strong class="float-right">@Html.ActionLink("Ordenar del mas actual al mas viejo", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" })</strong>
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas actual al mas viejo", "Busqueda", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber})</strong>
         }
     </div>
 </div>
@@ -60,32 +50,40 @@
     <nav aria-label="Page navigation">
         @{
             double totalPages = ViewBag.TotalPages;
-
-            for (int i = 1; i <= totalPages; i++)
-            {
                 <ul class="pagination justify-content-end">
-                    @if (i == ViewBag.PageNumber)
+                    @if (ViewBag.PageNumber == 1)
                     {
-                        <li class="page-item">
-                            <a class="page-link" href="#">Previous</a>
-                        </li>
-                        <li class="page-item active">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber },new { @class = "page-link" })</li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+                        <li class="page-item disabled">@Html.ActionLink("Anterior", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
                     }
                     else
                     {
-                        <li class="page-item">
-                            <a class="page-link" href="#">Previous</a>
-                        </li>
-                        <li class="page-item">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber == 0 ? 1 : ViewBag.PageNumber },new { @class = "page-link" })</li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+                        <li class="page-item">@Html.ActionLink("Anterior", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber - 1 }, new { @class = "page-link" })</li>
                     }
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+
+                        if (i == ViewBag.PageNumber)
+                        {
+                            <li class="page-item active">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+                        else
+                        {
+                            <li class="page-item">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+
+                    }
+
+                    @if (totalPages == ViewBag.PageNumber)
+                    {
+                        <li class="page-item disabled">@Html.ActionLink("Siguiente", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink("Siguiente", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber + 1 }, new { @class = "page-link" })</li>
+                    }
+
                 </ul>
-            }
         }
     </nav>
 </div>

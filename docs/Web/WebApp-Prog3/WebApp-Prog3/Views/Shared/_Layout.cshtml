@@ -1,4 +1,6 @@
-﻿@model WebApp_Prog3.Models.CategoriaClient
+﻿
+@using WebApp_Prog3.Models;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,23 +21,35 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">GANA DINERO FACIL</a>
+                    <a class="nav-link" href="#"> </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         CATEGORIAS
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">CIBER SEGURIDAD</a>
-                        <a class="dropdown-item" href="#">DISEÑO </a>
-                        <a class="dropdown-item" href="#">EBANISTERIA </a>
-                        <a class="dropdown-item" href="#">PROGRAMACION </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        @{
+                            CategoriaClient categoria = new CategoriaClient();
+                            var elementos = categoria.GetAll();
+                            int count = 0;
+                            foreach (var cat in elementos)
+                            {
+                                <a class="dropdown-item" href="#">@cat.Nombre</a>
+                                count++;
+                                if (count == 4)
+                                {
+                                    break;
+                                }
+
+                            }
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Ver todas las categorias</a>
+                        }
+
                     </div>
                 </li>
 

@@ -32,13 +32,15 @@ namespace WebApp_Prog3.Controllers
             return View(v);
         }
 
-        public ActionResult Busqueda(string sortOrder, string sortBy, int pageNumber =1)
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Busqueda(string buscar,string sortOrder, string sortBy, int pageNumber = 1)
         {
             PostClient postClient = new PostClient();
             CategoriaClient categoriaClient = new CategoriaClient();
             UserPosterClient userPoster = new UserPosterClient();
             var elementos = postClient.GetAll();
             var e = new List<Post>();
+            var j = new Post();
             foreach (var i in elementos)
             {
                 i.Posters = userPoster.FindPost(i.Poster);
@@ -46,9 +48,37 @@ namespace WebApp_Prog3.Controllers
                 e.Add(i);
             }
 
+            var lista = e;
+
+            if (buscar != null)
+            {
+                buscar = buscar.ToUpper();
+                var v = (from a in e
+                         where a.Categorias.Contains(buscar) ||
+                               a.Posters.Contains(buscar) ||
+                               a.NombrePosicion.Contains(buscar)
+                         select a);
+                lista = v.ToList();
+                lista = ApplySorting(sortOrder, sortBy, lista);
+                lista = ApplyPagination(pageNumber, lista);
+                
+            }
+            else
+            {
+                lista = ApplySorting(sortOrder, sortBy, lista);
+                lista = ApplyPagination(pageNumber, lista);
+            }
+
+            ViewBag.Buscar = buscar;
+
+            return View(lista);
+
+        }
+
+        public List<Post> ApplySorting(string sortOrder, string sortBy, List<Post> e)
+        {
             ViewBag.SortOrder = sortOrder;
             ViewBag.SortBy = sortBy;
-            ViewBag.PageNumber = pageNumber;
 
             switch (sortBy)
             {
@@ -74,76 +104,17 @@ namespace WebApp_Prog3.Controllers
                     break;
             }
 
+            return e;
+        }
 
+        public List<Post> ApplyPagination(int pageNumber,List<Post> e)
+        {
+            ViewBag.PageNumber = pageNumber;
             ViewBag.TotalPages = Math.Ceiling(e.Count() / 20.0);
 
             e = e.Skip((pageNumber - 1) * 20).Take(20).ToList();
-
-            return View(e);
+            return e;
         }
 
-        [HttpPost]
-        public ActionResult Busqueda(string buscar)
-        {
-            buscar = buscar.ToUpper();
-            PostClient postClient = new PostClient();
-            CategoriaClient categoriaClient = new CategoriaClient();
-            UserPosterClient userPoster = new UserPosterClient();
-            var elementos = postClient.GetAll();
-            var e = new List<Post>();
-            var j = new Post();
-            foreach (var i in elementos)
-            {
-                i.Posters = userPoster.FindPost(i.Poster);
-                i.Categorias = categoriaClient.FindCategory(i.NombreCategoria);
-                e.Add(i);
-            }
-            var v = (from a in e
-                     where a.Categorias.Contains(buscar) || 
-                           a.Posters.Contains(buscar) || 
-                           a.NombrePosicion.Contains(buscar) 
-                     select a);
-            return View(v.ToList());
-        }
-
-        //[HttpPost]
-        //public ActionResult Busqueda(int page = 1, string buscar = "")
-        //{
-        //    int pageSize = 20;
-        //    int totalRecord = 0;
-        //    if(page < 1)
-        //    {
-        //        page = 1;
-        //    }
-        //    int skip = (page * pageSize) - pageSize;
-        //    var data = FiltrarPosts(buscar, pageSize,skip, totalRecord);
-        //    ViewBag.TotalRows = totalRecord;
-        //    return View(data);
-        //}
-
-
-
-        public List<Post> FiltrarPosts(string buscar, int pageSize, int skip, int totalRecord)
-        {
-            PostClient postClient = new PostClient();
-            CategoriaClient categoriaClient = new CategoriaClient();
-            var elementos = postClient.GetAll();
-            var e = new List<Post>();
-            foreach(var i in elementos)
-            {
-                i.NombreCategoriaNavigation.Nombre = categoriaClient.Get(i.NombreCategoria).ToString();
-                e.Add(i);
-            }
-            var v = (from a in e
-                     where a.NombreCategoriaNavigation.Nombre.Contains(buscar)
-                     select a);
-            totalRecord = v.Count();
-            if(pageSize > 0)
-            {
-                v = v.Skip(skip).Take(pageSize);
-            }
-            
-            return v.ToList();
-        }
     }
 }
