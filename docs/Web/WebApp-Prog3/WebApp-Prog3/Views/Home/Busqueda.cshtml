@@ -50,6 +50,8 @@
     <nav aria-label="Page navigation">
         @{
             double totalPages = ViewBag.TotalPages;
+            if (totalPages > 1)
+            {
                 <ul class="pagination justify-content-end">
                     @if (ViewBag.PageNumber == 1)
                     {
@@ -84,6 +86,8 @@
                     }
 
                 </ul>
+            }
+
         }
     </nav>
 </div>
