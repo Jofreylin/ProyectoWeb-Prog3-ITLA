@@ -102,7 +102,35 @@ namespace WebApp_Prog3.Models
             }
         }
 
-    
+        public string FindCategory(int id)
+        {
+            try
+            {
+                var lista = new List<Categoria>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("categoria").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<Categoria>>(result);
+                    var elemento = lista.Single(x => x.Id == id);
+                    string categoria = elemento.Nombre;
+                    return categoria;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public bool Add(Categoria model)
         {
             try

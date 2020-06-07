@@ -61,5 +61,10 @@ namespace WebApp_Prog3.Models
         [ForeignKey(nameof(NombreTipoTrabajo))]
         [InverseProperty(nameof(TipoTrabajo.Post))]
         public virtual TipoTrabajo NombreTipoTrabajoNavigation { get; set; }
+
+        public string Categorias { get; set; }
+        public string Posters { get; set; }
+        public string Ciudades { get; set; }
+        public string Paises { get; set; }
     }
 }
