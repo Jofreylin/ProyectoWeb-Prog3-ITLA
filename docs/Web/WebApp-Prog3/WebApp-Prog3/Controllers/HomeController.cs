@@ -32,7 +32,7 @@ namespace WebApp_Prog3.Controllers
             return View(v);
         }
 
-        public ActionResult Busqueda()
+        public ActionResult Busqueda(string sortOrder, string sortBy, int pageNumber =1)
         {
             PostClient postClient = new PostClient();
             CategoriaClient categoriaClient = new CategoriaClient();
@@ -45,7 +45,40 @@ namespace WebApp_Prog3.Controllers
                 i.Categorias = categoriaClient.FindCategory(i.NombreCategoria);
                 e.Add(i);
             }
-            
+
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.SortBy = sortBy;
+            ViewBag.PageNumber = pageNumber;
+
+            switch (sortBy)
+            {
+                case "Fecha":
+                    switch (sortOrder)
+                    {
+                        case "Asc":
+                            e = e.OrderBy(x => x.FechaCreacion).ToList();
+                            break;
+
+                        case "Desc":
+                            e = e.OrderByDescending(x => x.FechaCreacion).ToList();
+                            break;
+                        default:
+                            e = e.OrderBy(x => x.FechaCreacion).ToList();
+                            break;
+
+
+                    }
+                    break;
+                default:
+                    e = e.OrderBy(x => x.FechaCreacion).ToList();
+                    break;
+            }
+
+
+            ViewBag.TotalPages = Math.Ceiling(e.Count() / 20.0);
+
+            e = e.Skip((pageNumber - 1) * 20).Take(20).ToList();
+
             return View(e);
         }
 
