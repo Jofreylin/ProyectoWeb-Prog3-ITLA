@@ -77,6 +77,7 @@ namespace Service
 
                 originalModel.Id = model.Id;
                 originalModel.Nombre = model.Nombre;
+                originalModel.Logo = model.Logo;
 
                 _ProjectDbContext.Update(originalModel);
                 _ProjectDbContext.SaveChanges();

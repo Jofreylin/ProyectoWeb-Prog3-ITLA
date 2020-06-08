@@ -1,0 +1,40 @@
+﻿@using WebApp_Prog3.Models; 
+@{
+    ViewBag.Title = "Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="card-columns ">
+        @{
+            CategoriaClient categoria = new CategoriaClient();
+            var elementos = categoria.GetAll();
+            foreach (var cat in elementos)
+            {
+                <div class="card p-3 text-center">
+                    <img class="card-img-top" src="@Url.Action("GetImage","Home",new {id = cat.Id })" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@cat.Nombre</h5>
+                        @Html.ActionLink("Buscar esta categoria", "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "btn btn-dark" })
+                    </div>
+                    <div class="card-footer">
+                        <strong class="text-muted">
+                            Cantidad de trabajos en esta categoria:
+
+                            @if (cat.Cantidad < 1)
+                            {
+                                <strong class="text-danger">@cat.Cantidad</strong>
+                            }
+                            else
+                            {
+                                <strong class="text-success">@cat.Cantidad</strong>
+                            }
+
+                        </strong>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

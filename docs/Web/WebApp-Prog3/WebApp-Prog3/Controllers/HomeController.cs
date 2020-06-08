@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using WebApp_Prog3.Models.Clients;
 using WebApp_Prog3.Models;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace WebApp_Prog3.Controllers
 {
@@ -114,6 +117,19 @@ namespace WebApp_Prog3.Controllers
 
             e = e.Skip((pageNumber - 1) * 20).Take(20).ToList();
             return e;
+        }
+
+        public ActionResult Categorias()
+        {
+
+            return View();
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            CategoriaClient categoria = new CategoriaClient();
+            var imagen = categoria.Get(id);
+            return File(imagen.Logo, "image/jpg");
         }
 
     }

@@ -21,6 +21,10 @@ namespace Model
         [StringLength(60)]
         public string Nombre { get; set; }
 
+        public int Cantidad { get; set; }
+        
+        public byte[] Logo { get; set; }
+
         [InverseProperty("NombreCategoriaNavigation")]
         public virtual ICollection<Post> Post { get; set; }
     }
