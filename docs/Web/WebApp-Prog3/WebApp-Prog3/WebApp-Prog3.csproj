@@ -161,6 +161,7 @@
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Clients\CategoriaClient.cs" />
     <Compile Include="Models\Ciudad.cs" />
+    <Compile Include="Models\Clients\CiudadClient.cs" />
     <Compile Include="Models\Clients\UserAdminClient.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\URL.cs" />
