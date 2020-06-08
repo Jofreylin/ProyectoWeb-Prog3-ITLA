@@ -45,6 +45,7 @@ namespace WebApp_Prog3.Controllers
             PostClient postClient = new PostClient();
             CategoriaClient categoriaClient = new CategoriaClient();
             UserPosterClient userPoster = new UserPosterClient();
+            CiudadClient ciudad = new CiudadClient();
             var elementos = postClient.GetAll();
             var e = new List<Post>();
             var j = new Post();
@@ -52,6 +53,7 @@ namespace WebApp_Prog3.Controllers
             {
                 i.Posters = userPoster.FindPost(i.Poster);
                 i.Categorias = categoriaClient.FindCategory(i.NombreCategoria);
+                i.Ciudades = ciudad.FindCiudad(i.NombreCiudad);
                 e.Add(i);
             }
 

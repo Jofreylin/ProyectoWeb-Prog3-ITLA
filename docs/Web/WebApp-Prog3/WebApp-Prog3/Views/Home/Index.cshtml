@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var grid = new WebGrid(canPage: true, rowsPerPage: 20);
+    
 }
 
 <br />
@@ -13,7 +13,10 @@
     <br />
     @foreach (var cate in ViewBag.ListCategories)
     {
-        <div class="col-12">
+        <div class="">
+            <h1 class="invisible">Espacio</h1>
+        </div>
+        <div class="col-12 card bg-light shadow">
             <br />
             <div class="row">
                 <div class="col-12">
@@ -53,7 +56,9 @@
                 </div>
 
             </div>
+
         </div>
+
     }
 
 </div>

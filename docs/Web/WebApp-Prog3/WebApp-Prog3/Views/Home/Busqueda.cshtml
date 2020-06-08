@@ -20,30 +20,32 @@
 </div>
 <br />
 <div class="row">
-    <table class="table table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Ubicacion</th>
-                <th scope="col">Posicion</th>
-                <th scope="col">Empresa</th>
-                <th scope="col">Fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var post in Model)
-            {
+    <div class="col-12 card bg-light shadow">
+        <br />
+        <table class="table table-bordered table-hover bg-white">
+            <thead class="">
                 <tr>
-                    <td>@Html.DisplayFor(model => post.Categorias)</td>
-                    <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
-                    <td>@Html.DisplayFor(model => post.Posters)</td>
-                    <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                    <th scope="col">Ubicacion</th>
+                    <th scope="col">Posicion</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Fecha</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => post.Ciudades)</td>
+                        <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                        <td>@Html.DisplayFor(model => post.Posters)</td>
+                        <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
 </div>
-
-
 <div class="col-12">
     <nav aria-label="Page navigation">
         @{
@@ -89,3 +91,4 @@
         }
     </nav>
 </div>
+<br />
