@@ -323,6 +323,7 @@
     <Content Include="Views\UserPoster\ProfileAcc.cshtml" />
     <Content Include="Views\Home\Busqueda.cshtml" />
     <Content Include="Views\Shared\_PartialPageBuscador.cshtml" />
+    <Content Include="Views\Home\Categorias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

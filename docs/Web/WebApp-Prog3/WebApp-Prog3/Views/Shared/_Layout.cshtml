@@ -22,14 +22,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"> </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        CATEGORIAS
+                        Categorias
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @{
@@ -38,7 +38,7 @@
                             int count = 0;
                             foreach (var cat in elementos)
                             {
-                                @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha"},new {@class = "dropdown-item" })
+                                @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "dropdown-item" })
                                 count++;
                                 if (count == 4)
                                 {
@@ -47,7 +47,7 @@
 
                             }
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Ver todas las categorias</a>
+                            @Html.ActionLink("Ver todas", "Categorias", "Home", null, new { @class = "dropdown-item" })
                         }
 
                     </div>

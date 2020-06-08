@@ -26,6 +26,10 @@ namespace WebApp_Prog3.Models
         [StringLength(60)]
         [Display(Name = "Nombre de categoria")]
         public string Nombre { get; set; }
+        public int Cantidad { get; set; }
+
+        [Display(Name = "Logo de la categoria")]
+        public byte[] Logo { get; set; }
 
         [InverseProperty("NombreCategoriaNavigation")]
         public virtual ICollection<Post> Post { get; set; }

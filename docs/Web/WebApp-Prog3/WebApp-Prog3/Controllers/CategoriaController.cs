@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using WebApp_Prog3.Models;
 using WebApp_Prog3.ViewModel;
 
 namespace WebApp_Prog3.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoriaController : Controller
     {
         // GET ALL: Categoria
@@ -28,7 +30,7 @@ namespace WebApp_Prog3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Categoria c)
+        public ActionResult Create(Categoria c, HttpPostedFileBase imagenSisi)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
             if (categoriaClient.findNombre(c.Nombre))
@@ -37,8 +39,19 @@ namespace WebApp_Prog3.Controllers
             }
             else
             {
+                if (imagenSisi != null && imagenSisi.ContentLength > 0)
+                {
+                    byte[] imagenData = null;
+                    using (var bynaryImage = new BinaryReader(imagenSisi.InputStream))
+                    {
+                        imagenData = bynaryImage.ReadBytes(imagenSisi.ContentLength);
+                    }
+                    c.Logo = imagenData;
+                }
                 if (ModelState.IsValid)
                 {
+
+
                     c.Nombre = c.Nombre.ToUpper();
                     categoriaClient.Add(c);
                     return RedirectToAction("Index");
@@ -48,10 +61,10 @@ namespace WebApp_Prog3.Controllers
                     return View(c);
                 }
             }
-            
+
         }
 
-        
+
         public ActionResult Delete(int id)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
@@ -68,37 +81,51 @@ namespace WebApp_Prog3.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            
+
             CategoriaClient categoriaClient = new CategoriaClient();
             Categoria c = new Categoria();
             c = categoriaClient.Get(id);
+
             return View("Edit", c);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Categoria c)
+        public ActionResult Edit(Categoria c, HttpPostedFileBase imagenSisi)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
-            if (categoriaClient.findNombre(c.Nombre))
+            if (imagenSisi != null && imagenSisi.ContentLength > 0)
             {
-                return Edit("Ya existe una categoria con ese nombre");
+                byte[] imagenData = null;
+                using (var bynaryImage = new BinaryReader(imagenSisi.InputStream))
+                {
+                    imagenData = bynaryImage.ReadBytes(imagenSisi.ContentLength);
+                }
+                c.Logo = imagenData;
             }
             else
             {
-                if (ModelState.IsValid)
-                {
-                    c.Nombre = c.Nombre.ToUpper();
-                    categoriaClient.Update(c);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(c);
-                }
+                var imagen = categoriaClient.Get(c.Id);
+                c.Logo = imagen.Logo;
             }
-           
-            
+
+            if (ModelState.IsValid)
+            {
+                c.Nombre = c.Nombre.ToUpper();
+                categoriaClient.Update(c);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(c);
+            }
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            CategoriaClient categoria = new CategoriaClient();
+            var imagen = categoria.Get(id);
+            return File(imagen.Logo, "image/jpg");
         }
 
 

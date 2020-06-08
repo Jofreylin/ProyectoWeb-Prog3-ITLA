@@ -14,6 +14,24 @@ namespace WebApp_Prog3
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "CategoriasAdmin",
+                url: "Admin/Categoria/{action}/{id}",
+                defaults: new { controller = "Categoria", action = "Index", id = UrlParameter.Optional }
+            );
+
+            //routes.MapRoute(
+            //    name: "PerfilAdmin",
+            //    url: "Admin/{action}/{id}",
+            //    defaults: new { controller = "UserAdmin", action = "ProfileAcc", id = UrlParameter.Optional }
+            //);
+
+            routes.MapRoute(
+                name: "CategoriasUser",
+                url: "Categorias/{id}",
+                defaults: new { controller = "Home", action = "Categorias", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
