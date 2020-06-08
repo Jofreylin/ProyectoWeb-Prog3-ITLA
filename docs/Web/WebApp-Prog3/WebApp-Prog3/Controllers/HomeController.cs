@@ -18,20 +18,24 @@ namespace WebApp_Prog3.Controllers
             PostClient postClient = new PostClient();
             UserPosterClient userPoster = new UserPosterClient();
             CategoriaClient categoriaClient = new CategoriaClient();
+            CiudadClient ciudadClient = new CiudadClient();
             var elementos = postClient.GetAll();
             var i = new List<Post>();
             foreach(var e in elementos)
             {
                 e.Posters = userPoster.FindPost(e.Poster);
                 e.Categorias = categoriaClient.FindCategory(e.NombreCategoria);
+                e.Ciudades = ciudadClient.FindCiudad(e.NombreCiudad);
                 i.Add(e);
             }
             var v = (from a in i
                      
                      select a);
 
+            
             ViewBag.ListCategories = categoriaClient.GetAll().OrderBy(p => p.Nombre);
             v = v.OrderBy(p => p.Categorias);
+            
             return View(v);
         }
 

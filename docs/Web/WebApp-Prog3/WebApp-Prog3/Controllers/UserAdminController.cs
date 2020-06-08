@@ -64,6 +64,36 @@ namespace WebApp_Prog3.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ProfileAcc()
         {
+            UserPosterClient poster = new UserPosterClient();
+            UserAdminClient admin = new UserAdminClient();
+            CategoriaClient categoria = new CategoriaClient();
+            PostClient post = new PostClient();
+            CiudadClient ciudad = new CiudadClient();
+            var elementoCiudad = ciudad.GetAll();
+            var elementoPoster = poster.GetAll();
+            var elementoCategoria = categoria.GetAll();
+            var elementoAdmin = admin.GetAll();
+            ViewBag.Cuenta = elementoAdmin.Single(x => x.Usuario == User.Identity.Name);
+
+            ViewBag.CountPosters = elementoPoster.Count();
+            ViewBag.CountAdmins = admin.GetAll().Count();
+            ViewBag.CountCategorias = elementoCategoria.Count();
+            ViewBag.CountPosts = post.GetAll().Count();
+
+            elementoCategoria = elementoCategoria.OrderByDescending(x => x.Cantidad);
+            ViewBag.ListCategorias = elementoCategoria;
+            ViewBag.MaxCategoria = elementoCategoria.First().Nombre;
+
+            var v = (from a in elementoPoster
+                                     where a.FechaCreacion.Day == DateTime.Now.Day
+                                     select a
+                                     );
+            ViewBag.CountRPostersT = v.Count();
+            elementoCiudad = elementoCiudad.OrderByDescending(x => x.Cantidad);
+            ViewBag.MaxCityPosters = elementoCiudad.First().Nombre;
+
+            
+
             return View();
         }
     }

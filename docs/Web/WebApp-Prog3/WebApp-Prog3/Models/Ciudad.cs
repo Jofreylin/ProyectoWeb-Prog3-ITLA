@@ -28,6 +28,8 @@ namespace WebApp_Prog3.Models
         [Display(Name = "Pais de la ciudad")]
         public int NombrePais { get; set; }
 
+        public int Cantidad { get; set; }
+
         [ForeignKey(nameof(NombrePais))]
         [InverseProperty(nameof(Pais.Ciudad))]
         public virtual Pais NombrePaisNavigation { get; set; }
