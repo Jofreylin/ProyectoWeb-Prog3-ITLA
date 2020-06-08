@@ -26,40 +26,53 @@
                 <li class="nav-item">
                     @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> </a>
-                </li>
+
                 @*<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Categorias
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @{
-                                CategoriaClient categoria = new CategoriaClient();
-                                var elementos = categoria.GetAll();
-                                int count = 0;
-                                foreach (var cat in elementos)
-                                {
-                                    @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "dropdown-item" })
-                                    count++;
-                                    if (count == 4)
-                                    {
-                                        break;
-                                    }
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @{
+                    CategoriaClient categoria = new CategoriaClient();
+                    var elementos = categoria.GetAll();
+                    int count = 0;
+                    foreach (var cat in elementos)
+                    {
+                        @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "dropdown-item" })
+                        count++;
+                        if (count == 4)
+                        {
+                            break;
+                        }
 
-                                }
-                                <div class="dropdown-divider"></div>
-                                @Html.ActionLink("Ver todas", "Categorias", "Home", null, new { @class = "dropdown-item" })
-                            }
+                    }
+                    <div class="dropdown-divider"></div>
+                    @Html.ActionLink("Ver todas", "Categorias", "Home", null, new { @class = "dropdown-item" })
+                }
 
-                        </div>
-                    </li>*@
+            </div>
+        </li>*@
+
                 <li class="nav-item">
                     @Html.ActionLink("Categorias", "Categorias", "Home", null, new { @class = "nav-link" })
                 </li>
-            </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> </a>
+                </li>
+                <li class="nav-item container">
+                    @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "form-inline" }))
+                    {
 
+                        @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-4", @placeholder = "Algo mas especifico" })
+                        <button class="btn btn-outline-primary " type="submit">Buscar</button>
+
+                    }
+                    
+                </li>
+
+            </ul>
             <form class="form-inline my-2 my-lg-0 ">
+                <button class="btn btn-success mr-sm-5 float-right">Postear un trabajo</button>
                 @if (User.Identity.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
@@ -73,19 +86,19 @@
                 }
                 else
                 {
-                    <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-secondary mr-sm-2" })</a>
-                    <a>@Html.ActionLink("Registrarse", "Index", "UserPoster", null, new { @class = "btn btn-info my-2 my-sm-0 btn-sm" })</a>
+                    <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-outline-secondary mr-sm-3" })</a>
+                    <a>@Html.ActionLink("Registrarse", "Index", "UserPoster", null, new { @class = "btn btn-outline-info my-2 my-sm-0 btn-sm" })</a>
                 }
 
             </form>
             @*<ul class="navbar-nav mr-sm-4 ">
-                    <li>
-                        <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Register</a>
-                    </li>
-                    <li>
-                        <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
-                    </li>
-                </ul>*@
+            <li>
+                <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Register</a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
+            </li>
+        </ul>*@
         </div>
     </nav>
 
