@@ -20,11 +20,12 @@
 </div>
 <br />
 <div class="row">
-    <div class="col-12 card bg-light shadow">
+    <div class="col-12 card bg-light shadow table-responsive">
         <br />
-        <table class="table table-bordered table-hover bg-white">
+        <table class="table table-bordered table-hover bg-white ">
             <thead class="">
                 <tr>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Posicion</th>
                     <th scope="col">Empresa</th>
@@ -34,12 +35,16 @@
             <tbody>
                 @foreach (var post in Model)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(model => post.Ciudades)</td>
-                        <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
-                        <td>@Html.DisplayFor(model => post.Posters)</td>
-                        <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
-                    </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => post.Categorias)</td>
+                    <td>@Html.DisplayFor(model => post.Ciudades)</td>
+                    <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                    <td>@Html.DisplayFor(model => post.Posters)</td>
+                    <td>@Html.DisplayFor(model => post.FechaCreacion.DayOfWeek) @Html.DisplayFor(model => post.FechaCreacion.Day), @Html.DisplayFor(model => post.FechaCreacion.Year)</td>
+                    <td>
+                        @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id }, new { @class = "btn btn-outline-info" })
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

@@ -15,7 +15,7 @@
                     <img width="300" card-img-top" src="@Url.Action("GetImage","Home",new {id = cat.Id })" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@cat.Nombre</h5>
-                        @Html.ActionLink("Buscar esta categoria", "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "btn btn-dark" })
+                        @Html.ActionLink("Buscar esta categoria", "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" },new { @class = "btn btn-dark" })
                     </div>
                     <div class="card-footer">
                         <strong class="text-muted">

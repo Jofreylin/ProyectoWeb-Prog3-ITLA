@@ -19,8 +19,8 @@
                     <td>@categoria.Id</td>
                     <td>@categoria.Nombre</td>
                     <td>
-                        <a href="@Url.Action("Delete","Categoria",new {id = categoria.Id })">Delete</a>
-                        <a href="@Url.Action("Edit","Categoria",new {id = categoria.Id })">| Edit</a>
+                        @Html.ActionLink("Eliminar","Delete","Categoria",new {id = categoria.Id }, new {@class ="btn btn-outline-danger" })
+                         | @Html.ActionLink("Editar","Edit","Categoria",new {id = categoria.Id }, new {@class ="btn btn-outline-warning" })
                     </td>
                 </tr>
             }

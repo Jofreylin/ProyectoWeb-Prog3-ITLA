@@ -323,8 +323,11 @@
     <Content Include="Views\UserAdmin\ProfileAcc.cshtml" />
     <Content Include="Views\UserPoster\ProfileAcc.cshtml" />
     <Content Include="Views\Home\Busqueda.cshtml" />
-    <Content Include="Views\Shared\_PartialPageBuscador.cshtml" />
+    <Content Include="Views\Shared\_PartialPageBuscadorAdmin.cshtml" />
     <Content Include="Views\Home\Categorias.cshtml" />
+    <Content Include="Views\UserAdmin\BusquedaUserPoster.cshtml" />
+    <Content Include="Views\Home\Postularme.cshtml" />
+    <Content Include="Views\UserAdmin\GestionUserPoster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

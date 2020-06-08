@@ -138,5 +138,18 @@ namespace WebApp_Prog3.Controllers
             return File(imagen.Logo, "image/jpg");
         }
 
+        
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Postularme(int id)
+        {
+            ViewBag.IdPost = id;
+            return View();
+        }
+
+        public ActionResult Postularme()
+        {
+            
+            return Index();
+        }
     }
 }
