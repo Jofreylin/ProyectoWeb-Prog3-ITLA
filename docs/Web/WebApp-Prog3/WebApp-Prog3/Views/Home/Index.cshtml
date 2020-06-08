@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
 
 <br />
@@ -16,7 +16,7 @@
         <div class="">
             <h1 class="invisible">Espacio</h1>
         </div>
-        <div class="col-12 card bg-light shadow">
+        <div class="col-12 card bg-light shadow table-responsive">
             <br />
             <div class="row">
                 <div class="col-12">
@@ -36,27 +36,52 @@
                                 <th scope="col">Empresa</th>
                             </tr>
                         </thead>
-                        @foreach (var post in Model)
-                        {
 
-                            if (post.Categorias == cate.Nombre)
+                        @{
+                            int conteo = 0;
+                            foreach (var post in Model)
                             {
-                                <tbody>
-                                    <tr>
-                                        <td>@Html.DisplayFor(model => post.Ciudades)</td>
-                                        <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
-                                        <td>@Html.DisplayFor(model => post.Posters)</td>
-                                    </tr>
-                                </tbody>
-                            }
 
+                                if (post.Categorias == cate.Nombre)
+                                {
+                                    conteo++;
+                                    <tbody>
+                                        <tr>
+                                            <td>@Html.DisplayFor(model => post.Ciudades)</td>
+                                            <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                            <td>@Html.DisplayFor(model => post.Posters)</td>
+                                            <td>
+                                                @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id }, new { @class = "btn btn-outline-info" })
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    if (conteo == 3)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                            }
                         }
                     </table>
 
                 </div>
 
             </div>
+            <div>
+                @{
+                    int resta = cate.Cantidad - conteo;
+                    string resultado = "Ver (" + resta + ") mas";
+                    if (resta > 0)
+                    {
+                        <strong>
+                            @Html.ActionLink(resultado, "Busqueda", new { buscar = cate.Nombre, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber }, new { @class = "float-right" })
 
+                        </strong>
+                    }
+                }
+            </div>
+            <br />
         </div>
 
     }

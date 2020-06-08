@@ -47,5 +47,8 @@ namespace WebApp_Prog3.Models
         [ForeignKey(nameof(NombrePais))]
         [InverseProperty(nameof(Pais.UserPoster))]
         public virtual Pais NombrePaisNavigation { get; set; }
+
+        public string Ciudades { get; set; }
+        public string Paises { get; set; }
     }
 }

@@ -1,0 +1,11 @@
+﻿﻿<div>
+    <div>
+        <p><strong>Puedes buscar por:</strong> Id, Nombre, Email, Ciudad</p>
+    </div>
+    @using (Html.BeginForm("BusquedaUserPoster", "UserAdmin", FormMethod.Post, new { @class = "form-inline " }))
+    {
+
+        @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-4", @placeholder = "UserPoster" })
+        <button class="btn btn-outline-primary " type="submit">Buscar</button>
+    }
+</div>
