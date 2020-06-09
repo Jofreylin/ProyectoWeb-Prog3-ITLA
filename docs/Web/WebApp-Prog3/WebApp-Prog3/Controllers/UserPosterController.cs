@@ -71,5 +71,10 @@ namespace WebApp_Prog3.Controllers
         {
             return View();
         }
+
+        public ActionResult CrearPost()
+        {
+            return View();
+        }
     }
 }
