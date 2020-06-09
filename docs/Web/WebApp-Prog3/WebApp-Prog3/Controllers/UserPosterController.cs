@@ -66,5 +66,10 @@ namespace WebApp_Prog3.Controllers
         {
             return View();
         }
+
+        public ActionResult RegistrarPoster()
+        {
+            return View();
+        }
     }
 }

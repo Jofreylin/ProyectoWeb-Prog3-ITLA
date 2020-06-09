@@ -330,6 +330,7 @@
     <Content Include="Views\UserAdmin\BusquedaUserPoster.cshtml" />
     <Content Include="Views\Home\Postularme.cshtml" />
     <Content Include="Views\UserAdmin\GestionUserPoster.cshtml" />
+    <Content Include="Views\UserPoster\RegistrarPoster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
