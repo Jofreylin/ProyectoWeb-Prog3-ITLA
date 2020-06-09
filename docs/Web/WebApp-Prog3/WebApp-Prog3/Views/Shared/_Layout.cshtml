@@ -71,12 +71,12 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0 ">
-                <button class="btn btn-success mr-sm-5 float-right">Postear un trabajo</button>
+                @Html.ActionLink(" Publicar Trabajo", "CrearPost", "UserPoster", null, new { @class = "btn btn-success mr-sm-3" })
                 @if (User.Identity.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
                     {
-            <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
+                        <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
                     }
                     else if (User.IsInRole("Poster"))
                     {
