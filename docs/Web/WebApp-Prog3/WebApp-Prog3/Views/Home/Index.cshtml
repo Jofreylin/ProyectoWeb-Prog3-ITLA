@@ -51,7 +51,7 @@
                                             <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
                                             <td>@Html.DisplayFor(model => post.Posters)</td>
                                             <td>
-                                                @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id }, new { @class = "btn btn-outline-info" })
+                                                @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, pais = post.Paises, calle = post.NombreCalle, ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster}, new { @class = "btn btn-outline-info" })
                                             </td>
                                         </tr>
                                     </tbody>

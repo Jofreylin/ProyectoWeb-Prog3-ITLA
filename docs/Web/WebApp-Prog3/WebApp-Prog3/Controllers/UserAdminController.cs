@@ -97,7 +97,7 @@ namespace WebApp_Prog3.Controllers
             return View();
         }
 
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult BusquedaUserPoster(string buscar, string sortOrder, string sortBy, int pageNumber = 1)
         {
@@ -105,12 +105,14 @@ namespace WebApp_Prog3.Controllers
             CategoriaClient categoriaClient = new CategoriaClient();
             UserPosterClient userPoster = new UserPosterClient();
             CiudadClient ciudad = new CiudadClient();
+            PaisClient pais = new PaisClient();
             var elementos = userposterClient.GetAll();
             var e = new List<UserPoster>();
             var j = new Post();
             foreach (var i in elementos)
             {
                 i.Ciudades = ciudad.FindCiudad(i.NombreCiudad);
+                i.Paises = pais.FindPais(i.NombrePais);
                 e.Add(i);
             }
 
@@ -183,11 +185,22 @@ namespace WebApp_Prog3.Controllers
             return e;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult GestionUserPoster(int id)
+        public ActionResult GestionUserPoster(int id, string nombreEmpresa, string contra, string email, DateTime fechaCreacion , string calle, string ciudad, string pais)
         {
-            return View();
+            PostClient posts = new PostClient();
+            var elementoPosts = posts.GetUserPoster(id);
+            ViewBag.Contra = contra;
+            ViewBag.Empresa = nombreEmpresa;
+            ViewBag.Pais = pais;
+            ViewBag.Ciudad = ciudad;
+            ViewBag.Fecha = fechaCreacion;
+            ViewBag.Calle = calle;
+            ViewBag.IdPoster = id;
+            ViewBag.Correo = email;
+            ViewBag.ListPosts = elementoPosts.OrderByDescending(p => p.FechaCreacion);
+            return View(ViewBag.ListPosts);
         }
     }
 }

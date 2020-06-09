@@ -3,6 +3,43 @@
     ViewBag.Title = "Postularme";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    
+        <div class="col-md-10 card-header shadow">
+            <h4>@ViewBag.Empresa</h4>
+            @if(ViewBag.Calle != null)
+            {
+            <h6>@ViewBag.Calle</h6>
+            }
+            <h6>@ViewBag.Ciudad, @ViewBag.Pais</h6>
+            <br />
+            <hr />
+            <h6>@ViewBag.Posicion - @ViewBag.TipoTrabajo</h6>
+            <hr />
+        </div>
+        <div class="col-lg-2 card-body shadow">
+            <div>
+                @if (ViewBag.Foto != null)
+                {
+                    <img width="400" src="@Url.Action("GetImagePost","Home", new {id = ViewBag.IdPost})" class="card-img" />
+                }
 
-<h2>Postularme</h2>
+            </div>
+        </div>
+    
+</div>
+<div class="row card shadow">
+    <br />
+    <div class="col-md-8">
+        <div style="height:200px; overflow-y:auto">
+            <p class="text-justify">@ViewBag.Descripcion</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <h5 class="font-italic">¿Como aplicar?</h5>
+        <h6>Envia tu curriculum a: <strong><a href="mailto:@ViewBag.Correo">@ViewBag.Correo</a></strong></h6>
+    </div>
+    <br />
+</div>
+
 
