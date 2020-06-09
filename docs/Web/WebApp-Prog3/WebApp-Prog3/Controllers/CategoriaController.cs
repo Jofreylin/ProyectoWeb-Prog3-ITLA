@@ -33,6 +33,7 @@ namespace WebApp_Prog3.Controllers
         public ActionResult Create(Categoria c, HttpPostedFileBase imagenSisi)
         {
             CategoriaClient categoriaClient = new CategoriaClient();
+            c.Nombre = c.Nombre.ToUpper();
             if (categoriaClient.findNombre(c.Nombre))
             {
                 return Create("Ya existe una categoria con ese nombre");
@@ -50,9 +51,6 @@ namespace WebApp_Prog3.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-
-
-                    c.Nombre = c.Nombre.ToUpper();
                     categoriaClient.Add(c);
                     return RedirectToAction("Index");
                 }

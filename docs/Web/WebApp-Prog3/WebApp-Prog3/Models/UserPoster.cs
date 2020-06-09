@@ -23,10 +23,19 @@ namespace WebApp_Prog3.Models
         [StringLength(90)]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        
+        [Display(Name = "Confirmar email")]
+        [Compare("Email", ErrorMessage = "El email y la confirmacion no coinciden.")]
+        public string ConfirmarEmail { get; set; }
         [Required]
         [StringLength(90)]
         [Display(Name = "Contraseña")]
         public string Contra { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Contra", ErrorMessage = "La contraseña y la confirmacion no coinciden.")]
+        public string ConfirmarContra { get; set; }
         [Column("Fecha_Creacion", TypeName = "datetime")]
         [Display(Name = "Fecha de creacion")]
         public DateTime FechaCreacion { get; set; }
