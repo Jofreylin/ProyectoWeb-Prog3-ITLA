@@ -35,7 +35,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <img width="100" src="@Url.Action("GetImage","Home",new {id = Model.Id })" />
+            <img width="100" src="@Url.Action("GetImageCategoria","Home",new {id = Model.Id })" />
             <input type="file" name="imagenSisi" />
         </div>
     </div>

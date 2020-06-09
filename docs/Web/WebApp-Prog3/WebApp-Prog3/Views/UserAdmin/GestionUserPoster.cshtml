@@ -1,8 +1,97 @@
-﻿
+﻿@model IEnumerable<WebApp_Prog3.Models.Post>
 @{
     ViewBag.Title = "GestionUserPoster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>GestionUserPoster</h2>
+    
 
+        <div class="row">
+
+            <div class="col">
+                <div class="d-flex justify-content-center text-center">
+                    <form class="col">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">ID</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.IdPoster" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre de Empresa</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Empresa" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Contraseña</label>
+                            <input class="form-control mx-auto d-block" type="password" placeholder="@ViewBag.Contra" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Correo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Calle</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Calle" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Ciudad</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Ciudad" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Pais</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Pais" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Fecha de Registro</label>
+                            <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Fecha" readonly>
+                        </div>
+
+                    </form>
+                </div>
+            
+        </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="card shadow col-12">
+                <div class="card-header bg-white">
+                    <h4 class="card-title">Post realizados por @ViewBag.Empresa</h4>
+
+                </div>
+                <div>
+                    <div class="card-body table-responsive">
+                        <div style="height:400px; display:block">
+                            <table class="table table-bordered table-hover bg-white">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Ubicacion</th>
+                                        <th scope="col">Posicion</th>
+                                        <th scope="col">Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var post in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(model => post.Id)</td>
+                                            <td>@Html.DisplayFor(model => post.Categorias)</td>
+                                            <td>@Html.DisplayFor(model => post.Ciudades)</td>
+                                            <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                            <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                                            <td>
+                                                @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })
+                                                |  @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>

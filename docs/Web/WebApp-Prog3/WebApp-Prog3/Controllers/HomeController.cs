@@ -19,6 +19,8 @@ namespace WebApp_Prog3.Controllers
             UserPosterClient userPoster = new UserPosterClient();
             CategoriaClient categoriaClient = new CategoriaClient();
             CiudadClient ciudadClient = new CiudadClient();
+            PaisClient paisClient = new PaisClient();
+            TipoTrabajoClient tipoTrabajoClient = new TipoTrabajoClient();
             var elementos = postClient.GetAll();
             var i = new List<Post>();
             foreach(var e in elementos)
@@ -26,6 +28,8 @@ namespace WebApp_Prog3.Controllers
                 e.Posters = userPoster.FindPost(e.Poster);
                 e.Categorias = categoriaClient.FindCategory(e.NombreCategoria);
                 e.Ciudades = ciudadClient.FindCiudad(e.NombreCiudad);
+                e.Paises = paisClient.FindPais(e.NombrePais);
+                e.TipoTrabajos = tipoTrabajoClient.FindTipoTrabajo(e.NombreTipoTrabajo);
                 i.Add(e);
             }
             var v = (from a in i
@@ -46,6 +50,8 @@ namespace WebApp_Prog3.Controllers
             CategoriaClient categoriaClient = new CategoriaClient();
             UserPosterClient userPoster = new UserPosterClient();
             CiudadClient ciudad = new CiudadClient();
+            PaisClient pais = new PaisClient();
+            TipoTrabajoClient tipoTrabajoClient = new TipoTrabajoClient();
             var elementos = postClient.GetAll();
             var e = new List<Post>();
             var j = new Post();
@@ -54,6 +60,8 @@ namespace WebApp_Prog3.Controllers
                 i.Posters = userPoster.FindPost(i.Poster);
                 i.Categorias = categoriaClient.FindCategory(i.NombreCategoria);
                 i.Ciudades = ciudad.FindCiudad(i.NombreCiudad);
+                i.Paises = pais.FindPais(i.NombrePais);
+                i.TipoTrabajos = tipoTrabajoClient.FindTipoTrabajo(i.NombreTipoTrabajo);
                 e.Add(i);
             }
 
@@ -131,25 +139,44 @@ namespace WebApp_Prog3.Controllers
             return View();
         }
 
-        public ActionResult GetImage(int id)
+        public ActionResult GetImageCategoria(int id)
         {
             CategoriaClient categoria = new CategoriaClient();
             var imagen = categoria.Get(id);
             return File(imagen.Logo, "image/jpg");
         }
 
-        
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult Postularme(int id)
+        public ActionResult GetImagePost(int id)
         {
-            ViewBag.IdPost = id;
-            return View();
+            PostClient post = new PostClient();
+            var imagen = post.Get(id);
+            try
+            {
+                return File(imagen.Logo, "image/jpg");
+            }
+            catch(Exception e)
+            {
+                return null;
+            }   
         }
 
-        public ActionResult Postularme()
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult Postularme(int id, string pais, string ciudad, string posicion, string tipoTrabajo, string descripcion, string calle, int idPoster)
         {
-            
-            return Index();
+            UserPosterClient poster = new UserPosterClient();
+            var elementoPoster = poster.Get(idPoster);
+            ViewBag.Empresa = elementoPoster.NombreEmpresa;
+            ViewBag.Pais = pais;
+            ViewBag.Ciudad = ciudad;
+            ViewBag.TipoTrabajo = tipoTrabajo;
+            ViewBag.Descripcion = descripcion;
+            ViewBag.IdPost = id;
+            ViewBag.Correo = elementoPoster.Email;
+            ViewBag.Posicion = posicion;
+            ViewBag.Foto = GetImagePost(id);
+            ViewBag.Calle = calle;
+            return View();
         }
     }
 }

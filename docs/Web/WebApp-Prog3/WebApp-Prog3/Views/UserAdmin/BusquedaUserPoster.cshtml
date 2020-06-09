@@ -49,7 +49,7 @@
                         <td></td>
                         <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
                         <td>
-                            @Html.ActionLink("Gestionar", "GestionUserPoster", "UserAdmin", new { id = post.Id }, new { @class = "btn btn-outline-info" })
+                            @Html.ActionLink("Gestionar", "GestionUserPoster", "UserAdmin", new { id = post.Id , nombreEmpresa = post.NombreEmpresa, email = post.Email, calle = post.NombreCalle, ciudad = post.Ciudades, pais = post.Paises, contra = post.Contra, fechaCreacion = post.FechaCreacion }, new { @class = "btn btn-outline-info" })
                         </td>
                     </tr>
                 }

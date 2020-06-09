@@ -66,5 +66,6 @@ namespace WebApp_Prog3.Models
         public string Posters { get; set; }
         public string Ciudades { get; set; }
         public string Paises { get; set; }
+        public string TipoTrabajos { get; set; }
     }
 }
