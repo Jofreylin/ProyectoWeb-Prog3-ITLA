@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Crear Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+
+    <div class="col">
+        <div class="d-flex justify-content-center text-center">
+            <form class="col-8">
+                <div class="form-group " id="msi">
+                    <label for="exampleFormControlInput1">Compañia</label>
+                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Nombre de la empresa">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Tipo de trabajo</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Tiempo completo</option>
+                        <option>Medio tiempo</option>
+                        <option>Freelancer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">URL</label>
+                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="URL(opcional)">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Logo</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Posicion</label>
+                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Puesto de trabajo">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Descripción</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+
+                <h4>Ubicación</h4>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Provincia</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Santo domingo</option>
+                        <option>Santiago</option>
+                        <option>San juan</option>
+                        <option>Bahoruco </option>
+                        <option>Barahona </option>
+                        <option>Dajabon </option>
+                        <option>Elias Piña </option>
+                        <option>San Francisco de Macoris </option>
+                        <option>EL seibo </option>
+                        <option>Espaillat </option>
+                        <option>Hato Mayor </option>
+                        <option>Salcedo </option>
+                        <option>Jimaní </option>
+                        <option>La Altagracia </option>
+                        <option>La Romana </option>
+                        <option>La Vega </option>
+                        <option>Nagua </option>
+                        <option>Mounseñor Nouel </option>
+                        <option>Monte Cristi </option>
+                        <option>Pedernales </option>
+                        <option>Baní </option>
+                        <option>Puerto Plata </option>
+                        <option>Samaná </option>
+                        <option>Cotuí </option>
+                        <option>San Cristobal </option>
+                        <option>San José de Ocoa </option>
+                        <option>San Pedro de Macoris </option>
+                        <option>Santiago Rodriguez </option>
+                        <option>Valverde </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Ciudad</label>
+                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Ciudad ej: Sto Dgo norte">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Calle</label>
+                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Calle ej: Calle #raB los praditos">
+                </div>
+
+                <button type="button" class="btn btn-success">Publicar trabajo</button>
+                <button type="button" class="btn btn-danger">Cancelar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
