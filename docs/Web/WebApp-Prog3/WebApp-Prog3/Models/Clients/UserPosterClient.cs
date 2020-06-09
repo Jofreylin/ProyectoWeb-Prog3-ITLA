@@ -45,31 +45,32 @@ namespace WebApp_Prog3.Models
             }
         }
 
-        public UserPoster FindCorreo(UserPoster model)
+        public bool FindCorreo(UserPoster model)
         {
             try
             {
-                var lista = new UserPoster();
+                var lista = new List<UserPoster>();
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("UserPoster/" + model.Id).Result;
+                HttpResponseMessage response = client.GetAsync("UserPoster").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    lista = JsonConvert.DeserializeObject<UserPoster>(result);
-                    return lista ;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Email == model.Email);
+                    return true ;
 
                 }
                 else
                 {
-                    return null;
+                    return false;
                 }
             }
             catch (Exception e)
             {
-                return null;
+                return false;
             }
         }
 
