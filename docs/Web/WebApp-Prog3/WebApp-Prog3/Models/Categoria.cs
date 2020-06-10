@@ -28,7 +28,7 @@ namespace WebApp_Prog3.Models
         public string Nombre { get; set; }
         public int Cantidad { get; set; }
 
-        [Display(Name = "Logo de la categoria")]
+        [Display(Name = "Logo (Recomendable: 400px X 400px)")]
         public byte[] Logo { get; set; }
 
         [InverseProperty("NombreCategoriaNavigation")]

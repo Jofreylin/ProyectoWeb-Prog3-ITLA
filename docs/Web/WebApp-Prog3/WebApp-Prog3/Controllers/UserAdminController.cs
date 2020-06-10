@@ -191,6 +191,20 @@ namespace WebApp_Prog3.Controllers
         {
             PostClient posts = new PostClient();
             var elementoPosts = posts.GetUserPoster(id);
+            TipoTrabajoClient tipo = new TipoTrabajoClient();
+            CategoriaClient categoria = new CategoriaClient();
+            CiudadClient ciudadClient = new CiudadClient();
+            PaisClient paisClient = new PaisClient();
+            var e = new List<Post>();
+            foreach(var i in elementoPosts)
+            {
+                i.TipoTrabajos = tipo.FindTipoTrabajo(i.NombreTipoTrabajo);
+                i.Categorias = categoria.FindCategory(i.NombreCategoria);
+                i.Ciudades = ciudadClient.FindCiudad(i.NombreCiudad);
+                i.Paises = paisClient.FindPais(i.NombrePais);
+                e.Add(i);
+            }
+
             ViewBag.Contra = contra;
             ViewBag.Empresa = nombreEmpresa;
             ViewBag.Pais = pais;
@@ -199,7 +213,8 @@ namespace WebApp_Prog3.Controllers
             ViewBag.Calle = calle;
             ViewBag.IdPoster = id;
             ViewBag.Correo = email;
-            ViewBag.ListPosts = elementoPosts.OrderByDescending(p => p.FechaCreacion);
+            ViewBag.ListPosts = e.OrderByDescending(p => p.FechaCreacion);
+            ViewBag.CantidadPosts = elementoPosts.Count();
             return View(ViewBag.ListPosts);
         }
     }

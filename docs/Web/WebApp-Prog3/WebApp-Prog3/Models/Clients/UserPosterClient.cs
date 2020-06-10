@@ -74,6 +74,34 @@ namespace WebApp_Prog3.Models
             }
         }
 
+        public UserPoster FindByCorreo(string correo)
+        {
+            try
+            {
+                var lista = new List<UserPoster>();
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(originalURL);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("Userposter").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    lista = JsonConvert.DeserializeObject<List<UserPoster>>(result);
+                    var elemento = lista.Single(x => x.Email == correo);
+                    return elemento;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public bool FindRole(string posterEmail)
         {
             try

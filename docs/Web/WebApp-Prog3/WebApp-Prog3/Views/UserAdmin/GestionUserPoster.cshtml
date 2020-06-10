@@ -53,7 +53,6 @@
     <div class="card shadow col-12">
         <div class="card-header bg-white">
             <h4 class="card-title">Post realizados por @ViewBag.Empresa</h4>
-
         </div>
         <div>
             <div class="card-body table-responsive">
@@ -65,28 +64,33 @@
                                 <th scope="col">Categoria</th>
                                 <th scope="col">Ubicacion</th>
                                 <th scope="col">Posicion</th>
+                                <th scope="col">Tipo de trabajo</th>
                                 <th scope="col">Fecha</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var post in Model)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(model => post.Id)</td>
-                                    <td>@Html.DisplayFor(model => post.Categorias)</td>
-                                    <td>@Html.DisplayFor(model => post.Ciudades)</td>
-                                    <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
-                                    <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
-                                    <td>
-                                        @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })
-                                        |  @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(model => post.Id)</td>
+                                <td>@Html.DisplayFor(model => post.Categorias)</td>
+                                <td>@Html.DisplayFor(model => post.NombreCalle), @Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
+                                <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                <td>@Html.DisplayFor(model => post.TipoTrabajos)</td>
+                                <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                                <td>
+                                    @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })
+                                    |  @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="card-footer">
+            <h6>Total de posts: <strong>@ViewBag.CantidadPosts</strong></h6>
         </div>
         <br />
         <br />

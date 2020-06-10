@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -96,7 +97,7 @@ namespace WebApp_Prog3.Controllers
                     {
                         if (c.NombreCiudad == 0 || c.NombrePais == 0)
                         {
-                            return RegistrarPoster("Asegurese de haber seleccionado un pais y su ciudad correspondiente.");
+                            return RegistrarPoster("Debes seleccionar un pais y su ciudad correspondiente.");
                         }
                         else
                         {
@@ -128,12 +129,11 @@ namespace WebApp_Prog3.Controllers
 
         }
 
-
         public JsonResult UpdateViewBagCiudad(int id)
         {
             CiudadClient ciudadClient = new CiudadClient();
             var elemento = ciudadClient.GetAll();
-            elemento.OrderBy(x => x.Nombre);
+            elemento.OrderByDescending(x => x.Nombre);
             var v = (from a in elemento
                      where a.NombrePais == id
                      select a
@@ -197,10 +197,71 @@ namespace WebApp_Prog3.Controllers
             }
         }
 
-
-        public ActionResult CrearPost()
+        [Authorize(Roles ="Poster")]
+        [HttpGet]
+        public ActionResult CrearPost(string message)
         {
-            return View();
+            Post post = new Post();
+            UserPosterClient posterClient = new UserPosterClient();
+            var elemento = posterClient.FindByCorreo(User.Identity.Name);
+            post.Posters = elemento.NombreEmpresa;
+            post.Poster = elemento.Id;
+            ViewBag.Message = message;
+            ViewBag.Correo = elemento.Email;
+            return View(post);
+        }
+
+        [Authorize(Roles="Poster")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CrearPost(Post c, HttpPostedFileBase imagenSisi)
+        {
+            UserPosterClient posterClient = new UserPosterClient();
+            var elemento = posterClient.FindByCorreo(User.Identity.Name);
+            c.Poster = elemento.Id;
+            PostClient postClient = new PostClient();
+            if (imagenSisi != null && imagenSisi.ContentLength > 0)
+            {
+                byte[] imagenData = null;
+                using (var bynaryImage = new BinaryReader(imagenSisi.InputStream))
+                {
+                    imagenData = bynaryImage.ReadBytes(imagenSisi.ContentLength);
+                }
+                c.Logo = imagenData;
+            }
+
+            if( c.NombreCategoria == 0)
+            {
+                return CrearPost("Debes seleccionar una Categoria.");
+            }
+            else if (c.NombrePais == 0 || c.NombreCiudad == 0)
+            {
+                return CrearPost("Debes seleccionar un pais y su ciudad correspondiente.");
+            }
+            else if (c.NombreTipoTrabajo == 0)
+            {
+                return CrearPost("Debes seleccionar un tipo de Trabajo.");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    postClient.Add(c);
+                    return RedirectToAction("ProfileAcc");
+                }
+                else
+                {
+                    return View(c);
+                }
+            }
+            
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            PostClient post = new PostClient();
+            var imagen = post.Get(id);
+            return File(imagen.Logo, "image/jpg");
         }
     }
 }

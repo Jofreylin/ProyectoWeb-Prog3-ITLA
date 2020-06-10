@@ -15,8 +15,8 @@ namespace WebApp_Prog3
 
             routes.MapRoute(
                 name: "CategoriasAdmin",
-                url: "Admin/Categoria/{action}/{id}",
-                defaults: new { controller = "Categoria", action = "Index", id = UrlParameter.Optional }
+                url: "Categoria/edit/",
+                defaults: new { controller = "Categoria", action = "Index"}
             );
 
             //routes.MapRoute(
@@ -26,9 +26,9 @@ namespace WebApp_Prog3
             //);
 
             routes.MapRoute(
-                name: "CategoriasUser",
-                url: "Categorias/{id}",
-                defaults: new { controller = "Home", action = "Categorias", id = UrlParameter.Optional }
+                name: "GestionarPosterAdmin",
+                url: "UserAdmin/GestionUserPoster/",
+                defaults: new { controller = "UserAdmin", action = "BusquedaUserPoster"}
             );
 
             routes.MapRoute(

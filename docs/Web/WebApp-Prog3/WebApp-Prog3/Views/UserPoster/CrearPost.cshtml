@@ -1,103 +1,211 @@
-﻿
+﻿@model WebApp_Prog3.Models.Post
 @{
     ViewBag.Title = "Crear Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!String.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
 }
 
 
 <div class="row">
-
     <div class="col">
-        <div class="d-flex justify-content-center text-center">
-            <form class="col-8">
-                <div class="form-group " id="msi">
-                    <label for="exampleFormControlInput1">Compañia</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Nombre de la empresa">
+        <div class="d-flex justify-content-center ">
+            @using (Html.BeginForm("CrearPost", "UserPoster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div>
                 </div>
-
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group ">
+                    <div class="col-md-10">
+                        <h6>Empresa: <strong>@Model.Posters</strong></h6>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.Poster, new { @class = "col control-label d-none" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Poster, new { @class = "form-control d-none" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.NombreCategoria, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombreCategoria, new { @class = "form-control d-none", @id = "CategoriaTextBox" })
+                        @Html.Partial("_PartialCargarCategorias")
+                        @Html.ValidationMessageFor(m => m.NombreCategoria, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.NombreTipoTrabajo, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombreTipoTrabajo, new { @class = "form-control d-none", @id = "TrabajoTextBox" })
+                        @Html.Partial("_PartialCargarTiposTrabajos")
+                        @Html.ValidationMessageFor(m => m.NombreTipoTrabajo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.DireccionUrl, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.DireccionUrl, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.DireccionUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Tipo de trabajo</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Tiempo completo</option>
-                        <option>Medio tiempo</option>
-                        <option>Freelancer</option>
-                    </select>
+                    @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-10">
+                        <input type="file" name="imagenSisi" />
+                        @Html.ValidationMessageFor(m => m.Logo, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.NombrePosicion, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombrePosicion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombrePosicion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.Descripcion, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <h5>UBICACION</h5>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">URL</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="URL(opcional)">
+                    @Html.LabelFor(m => m.NombreCalle, new { @class = "col control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombreCalle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombreCalle, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-
-
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">Logo</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    @Html.LabelFor(m => m.NombrePais, htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombrePais, new { @class = "form-control d-none", @id = "PaisTextBox" })
+                        @Html.Partial("_PartialCargarPaises")
+                        @Html.ValidationMessageFor(m => m.NombrePais, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-
-
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Posicion</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Puesto de trabajo">
+                    @Html.LabelFor(m => m.NombreCiudad, htmlAttributes: new { @class = "control-label col" })
+                    @Html.TextBoxFor(m => m.NombreCiudad, new { @class = "form-control d-none", @id = "CiudadTextBox" })
+                    <div class="col-md-10">
+                        <select id="Ciudad" onchange="CiudadChange();" class="form-control">
+                        </select>
+                        @Html.ValidationMessageFor(m => m.NombreCiudad, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-
+                <div class="form-group ">
+                    <div class="col-md-10">
+                        <h6>Correo de contacto: <strong>@ViewBag.Correo</strong></h6>
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Descripción</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div class="col">
+                        <input type="submit" class="btn btn-success" value="Publicar Trabajo" />
+                        @Html.ActionLink("Cancelar", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-danger ml-sm-2" })
+                    </div>
                 </div>
-
-
-                <h4>Ubicación</h4>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Provincia</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Santo domingo</option>
-                        <option>Santiago</option>
-                        <option>San juan</option>
-                        <option>Bahoruco </option>
-                        <option>Barahona </option>
-                        <option>Dajabon </option>
-                        <option>Elias Piña </option>
-                        <option>San Francisco de Macoris </option>
-                        <option>EL seibo </option>
-                        <option>Espaillat </option>
-                        <option>Hato Mayor </option>
-                        <option>Salcedo </option>
-                        <option>Jimaní </option>
-                        <option>La Altagracia </option>
-                        <option>La Romana </option>
-                        <option>La Vega </option>
-                        <option>Nagua </option>
-                        <option>Mounseñor Nouel </option>
-                        <option>Monte Cristi </option>
-                        <option>Pedernales </option>
-                        <option>Baní </option>
-                        <option>Puerto Plata </option>
-                        <option>Samaná </option>
-                        <option>Cotuí </option>
-                        <option>San Cristobal </option>
-                        <option>San José de Ocoa </option>
-                        <option>San Pedro de Macoris </option>
-                        <option>Santiago Rodriguez </option>
-                        <option>Valverde </option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Ciudad</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Ciudad ej: Sto Dgo norte">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Calle</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Calle ej: Calle #raB los praditos">
-                </div>
-
-                <button type="button" class="btn btn-success">Publicar trabajo</button>
-                <button type="button" class="btn btn-danger">Cancelar</button>
-
-            </form>
+            }
         </div>
     </div>
 </div>
+
+<script>
+        function CiudadChange() {
+            var idp = $("#Ciudad Option:Selected").val();
+            var SDD = $("#CiudadTextBox");
+
+            if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                }
+
+            if (idp == null || idp == 0 || idp == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(idp)
+                }
+            //You can check selected value using alert
+
+
+    }
+
+    function CategoriaChange() {
+            var idp = $("#Categoria Option:Selected").val();
+            var SDD = $("#CategoriaTextBox");
+
+            if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                }
+
+            if (idp == null || idp == 0 || idp == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(idp)
+                }
+            //You can check selected value using alert
+
+
+    }
+
+    function TrabajoChange() {
+            var idp = $("#Trabajo Option:Selected").val();
+            var SDD = $("#TrabajoTextBox");
+
+            if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                }
+
+            if (idp == null || idp == 0 || idp == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(idp)
+                }
+            //You can check selected value using alert
+
+
+        }
+
+        function PaisChange() {
+            var url = '@Url.Action("UpdateViewBagCiudad", "UserPoster")';
+            var PDD = $("#Ciudad");
+            var ODD = $("#Pais").val();
+            var SDD = $("#PaisTextBox");
+            var HDD = $("#CiudadTextBox");
+            var conteo = 0;
+            $("#CiudadTextBox").val(0);
+
+            $.getJSON(url, { id: ODD }, function (response) {
+                PDD.empty();
+                $.each(response, function (index, item) {
+                    var p = new Option(item.Text, item.Value);
+                    PDD.append(p);
+                    conteo = conteo + 1;
+                    if (conteo == 1) {
+                        HDD.val(item.Value);
+                    }
+                });
+
+                PDD.show();
+                if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(ODD)
+                }
+
+            });
+        }
+
+
+</script>
+
+
 
