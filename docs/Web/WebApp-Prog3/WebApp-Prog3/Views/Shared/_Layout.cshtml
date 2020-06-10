@@ -13,46 +13,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 </head>
-<body class="">
+<body class="bg-light">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg sticky-top">
-
+        @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ">
-                <li class="nav-item">
-                    @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-link" })
-                </li>
-
-                @*<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorias
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                @{
-                    CategoriaClient categoria = new CategoriaClient();
-                    var elementos = categoria.GetAll();
-                    int count = 0;
-                    foreach (var cat in elementos)
-                    {
-                        @Html.ActionLink(cat.Nombre, "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" }, new { @class = "dropdown-item" })
-                        count++;
-                        if (count == 4)
-                        {
-                            break;
-                        }
-
-                    }
-                    <div class="dropdown-divider"></div>
-                    @Html.ActionLink("Ver todas", "Categorias", "Home", null, new { @class = "dropdown-item" })
-                }
-
-            </div>
-        </li>*@
-
                 <li class="nav-item">
                     @Html.ActionLink("Categorias", "Categorias", "Home", null, new { @class = "nav-link" })
                 </li>
@@ -77,10 +47,12 @@
                     if (User.IsInRole("Admin"))
                     {
                         <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
+                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserAdmin", null, new { @class = "btn btn-outline-warning my-2 my-sm-0" })</a>
                     }
                     else if (User.IsInRole("Poster"))
                     {
                         <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserPoster", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
+                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserPoster", null, new { @class = "btn btn-outline-warning my-2 my-sm-0" })</a>
                     }
                 }
                 else
@@ -91,13 +63,13 @@
 
             </form>
             @*<ul class="navbar-nav mr-sm-4 ">
-            <li>
-                <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Register</a>
-            </li>
-            <li>
-                <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
-            </li>
-        </ul>*@
+                <li>
+                    <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Register</a>
+                </li>
+                <li>
+                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
+                </li>
+            </ul>*@
         </div>
     </nav>
 

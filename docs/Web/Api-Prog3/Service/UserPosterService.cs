@@ -50,7 +50,7 @@ namespace Service
                 return false;
             }
 
-            return false;
+            return true;
         }
 
         public UserPoster Get(int id)
