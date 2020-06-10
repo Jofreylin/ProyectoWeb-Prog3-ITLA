@@ -1,167 +1,156 @@
 ﻿@model WebApp_Prog3.Models.UserPoster
-@using WebApp_Prog3.Models;
 
 @{
+    ViewBag.Title = "Registrarse";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!String.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    ViewBag.Numero = 0;
 }
 
-<div>
+<div class="">
 
-    @using (Html.BeginForm("Create", "UserPoster", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+            @using (Html.BeginForm("RegistrarPoster", "UserPoster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
 
-        @Html.AntiForgeryToken()
-        <div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group ">
-                @Html.LabelFor(model => model.NombreEmpresa, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.AntiForgeryToken()
+                <div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.NombreEmpresa, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombreEmpresa, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombreEmpresa, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmarEmail, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmarEmail, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombreEmpresa, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Contra, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Contra, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmarEmail, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ConfirmarEmail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmarEmail, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmarContra, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmarContra, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Contra, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Contra, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Contra, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <h5>UBICACION</h5>
-            <div class="form-group">
-                @Html.LabelFor(m => m.NombreCalle, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.NombreCalle, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmarContra, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmarContra, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmarContra, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.NombrePais, "Pais", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Pais", null, "-- Pais --", htmlAttributes: new { @class = "form-control", @id = "Pais", onchange = "DropDownProductList();" })
-                    @Html.ValidationMessageFor(m => m.NombrePais, "", new { @class = "text-danger" })
+                <h5>UBICACION</h5>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NombreCalle, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NombreCalle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.NombreCalle, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.NombreCiudad, "Ciudad", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Ciudad", null, "-- Ciudad --", htmlAttributes: new { @class = "form-control", @id = "fufu" })
-                    @Html.ValidationMessageFor(m => m.NombreCiudad, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            @*<select>
-                    <option value="" selected disabled>Pais</option>
-                    @foreach (var m in ViewBag.ListPais)
-                    {
-                        <option>@m.Nombre</option>
-                    }
-                </select>*@
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Registrar" />
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NombrePais, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Partial("_PartialCargarPaises")
+                        @Html.ValidationMessageFor(m => m.NombrePais, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NombreCiudad, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select id="Ciudad" onchange="CiudadChange();" class="form-control">
+                            <option value="0" selected disabled>-- Ciudad --</option>
+                        </select>
 
-    }
+                        @Html.ValidationMessageFor(m => m.NombreCiudad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Registrar" />
+                    </div>
+                </div>
+
+
+
+            }
 </div>
-@*<script type="text/javascript">
 
-    function DropDownProductList() {
+<script>
+        //function DropDownProductList() {
 
-        var id = $("#Pais Option:Selected").val();
+        //    var idp = $("#Pais Option:Selected").val();
 
-        //You can check selected value using alert
+        //    //You can check selected value using alert
 
-        alert(id);
+        //    alert(idp);
 
-        $("#Pais").change(function () {
-            $("#fufu").empty;
-            $.ajax({
-                type: 'GET',
-                url: '/UserPoster/UpdateViewBagCiudad',
-                dataType: 'json',
-                data: { id },
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (error) {
-                    console.log(error);
+        //    $
+        //    $.ajax({
+        //           url: "UpdateViewBagCiudad/" + idp,
+        //        success: function () {
+        //               $("#fufu").load("RegistrarPoster");
+        //           }
+        //       });
+        //}
+        function CiudadChange() {
+            var idp = $("#Ciudad Option:Selected").val();
+            var SDD = $("#CiudadTextBox");
+
+            if (idp == null || idp == 0 || idp == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(idp)
                 }
-            });
-        });
+            //You can check selected value using alert
 
-    }
+            alert(idp);
+        }
+
+        function PaisChange() {
+            var url = '@Url.Action("UpdateViewBagCiudad", "UserPoster")';
+            var PDD = $("#Ciudad");
+            var ODD = $("#Pais").val();
+            var SDD = $("#PaisTextBox");
+
+            alert(ODD);
+            $.getJSON(url, { id: ODD }, function (response) {
+                PDD.empty();
+                $.each(response, function (index, item) {
+                    var p = new Option(item.Text, item.Value);
+                    PDD.append(p);
+                });
+
+                PDD.show();
+                if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(ODD)
+                }
+
+            });
+        }
+
 
 </script>
-
-<div class="row">
-
-    <div class="col">
-        <div class="d-flex justify-content-center text-center">
-            <form class="col-8">
-                <div class="form-group " id="msi">
-                    <label for="exampleFormControlInput1">Nombre Empresa</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="The gregorix brujeria">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Email</label>
-                    <input type="email" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Confirmar Email</label>
-                    <input type="email" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Contraseña</label>
-                    <input type="password" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="password">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Confirmar Contraseña</label>
-                    <input type="password" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="password">
-                </div>
-
-
-                <h4>UBICACION</h4>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Calle</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Katanga">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Ciudad</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Capotillo">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Pais</label>
-                    <input type="text" class="form-control mx-auto d-block" id="exampleFormControlInput1" placeholder="Dominican republi">
-                </div>
-
-                <button type="button" class="btn btn-success">Registrar</button>
-                <button type="button" class="btn btn-danger">Cancelar</button>
-
-            </form>
-        </div>
-    </div>
-</div>*@

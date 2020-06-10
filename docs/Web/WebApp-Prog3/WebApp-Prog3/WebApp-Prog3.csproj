@@ -332,7 +332,9 @@
     <Content Include="Views\UserAdmin\GestionUserPoster.cshtml" />
     <Content Include="Views\UserPoster\RegistrarPoster.cshtml" />
     <Content Include="Views\UserPoster\CrearPost.cshtml" />
-    <Content Include="Views\Shared\LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_PartialCargarPaises.cshtml" />
+    <Content Include="Views\Shared\_PartialCargarCiudades.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
