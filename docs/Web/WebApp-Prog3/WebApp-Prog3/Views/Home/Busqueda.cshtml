@@ -40,9 +40,9 @@
                     <td>@Html.DisplayFor(model => post.Ciudades)</td>
                     <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
                     <td>@Html.DisplayFor(model => post.Posters)</td>
-                    <td>@Html.DisplayFor(model => post.FechaCreacion.DayOfWeek) @Html.DisplayFor(model => post.FechaCreacion.Day), @Html.DisplayFor(model => post.FechaCreacion.Year)</td>
+                    <td>@Html.DisplayFor(model => post.FechaCreacion.DayOfWeek) @Html.DisplayFor(model => post.FechaCreacion.Day), @Html.DisplayFor(model => post.FechaCreacion.Month), @Html.DisplayFor(model => post.FechaCreacion.Year)</td>
                     <td>
-                        @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, pais = post.Paises, calle = post.NombreCalle , ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster }, new { @class = "btn btn-outline-info" })
+                        @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, ciudadId = post.NombreCiudad, paisId = post.NombrePais, categoriaId = post.NombreCategoria, trabajoId = post.NombreTipoTrabajo, pais = post.Paises, calle = post.NombreCalle , ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-outline-info" })
                     </td>
                 </tr>
                 }

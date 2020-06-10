@@ -162,21 +162,28 @@ namespace WebApp_Prog3.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult Postularme(int id, string pais, string ciudad, string posicion, string tipoTrabajo, string descripcion, string calle, int idPoster)
+        public ActionResult Postularme(int id, int ciudadId, int paisId, int trabajoId,int categoriaId, string pais, string ciudad, string posicion, string tipoTrabajo, string descripcion, string calle, int idPoster, string dUrl)
         {
             UserPosterClient poster = new UserPosterClient();
             var elementoPoster = poster.Get(idPoster);
+            Post post = new Post();
+            post.NombreCiudad = ciudadId;
+            post.NombrePais = paisId;
+            post.NombreTipoTrabajo = trabajoId;
+            post.NombreCategoria= categoriaId;
             ViewBag.Empresa = elementoPoster.NombreEmpresa;
-            ViewBag.Pais = pais;
-            ViewBag.Ciudad = ciudad;
-            ViewBag.TipoTrabajo = tipoTrabajo;
-            ViewBag.Descripcion = descripcion;
-            ViewBag.IdPost = id;
+            post.Paises = pais;
+            post.Ciudades = ciudad;
+            post.TipoTrabajos = tipoTrabajo;
+            post.Descripcion = descripcion;
+            post.Id = id;
             ViewBag.Correo = elementoPoster.Email;
-            ViewBag.Posicion = posicion;
+            post.NombrePosicion = posicion;
             ViewBag.Foto = GetImagePost(id);
-            ViewBag.Calle = calle;
-            return View();
+            post.NombreCalle = calle;
+            post.DireccionUrl = dUrl;
+            post.Poster = idPoster;
+            return View(post);
         }
     }
 }

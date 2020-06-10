@@ -128,7 +128,7 @@ namespace WebApp_Prog3.Models
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.PutAsJsonAsync("categoria/" + model.Id, model);
+                var response = client.PutAsJsonAsync("Post", model);
                 var result = response.Result;
                 return result.IsSuccessStatusCode;
             }

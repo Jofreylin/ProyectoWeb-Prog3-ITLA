@@ -153,6 +153,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UserPosterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -337,9 +338,12 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_PartialCargarCategorias.cshtml" />
     <Content Include="Views\Shared\_PartialCargarTiposTrabajos.cshtml" />
+    <Content Include="Views\UserPoster\EditarPost.cshtml" />
+    <Content Include="Views\UserPoster\InfoPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
