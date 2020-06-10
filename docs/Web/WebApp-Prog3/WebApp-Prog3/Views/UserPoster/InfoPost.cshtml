@@ -80,9 +80,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-10">
-                                @Html.ActionLink("edit", "EditarPost", "Post", new { id = Model.Id, categoria = Model.NombreCategoria, ciudad = Model.NombreCiudad, pais = Model.NombrePais, tipotrabajo = Model.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = Model.NombreCalle, posicion = Model.NombrePosicion, descripcion = Model.Descripcion, IdPoster = Model.Poster, dUrl = Model.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+                                @Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = Model.Id, categoria = Model.NombreCategoria, ciudad = Model.NombreCiudad, pais = Model.NombrePais, tipotrabajo = Model.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = Model.NombreCalle, posicion = Model.NombrePosicion, descripcion = Model.Descripcion, IdPoster = Model.Poster, dUrl = Model.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
                                 @Html.ActionLink("Volver Atras", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-primary mr-sm-4 ml-sm-4" })
-                                @Html.ActionLink("close", "EliminarPost", "Post", new { id = Model.Id }, new { @class = "btn btn-danger material-icons"})
+                                @Html.ActionLink("close", "EliminarPost", "UserPoster", new { id = Model.Id }, new { @class = "btn btn-danger material-icons"})
                             </div>
                         </div>
                 </form>

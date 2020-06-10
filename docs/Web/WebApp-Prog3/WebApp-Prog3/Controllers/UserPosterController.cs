@@ -215,7 +215,7 @@ namespace WebApp_Prog3.Controllers
             }
         }
 
-        [Authorize(Roles ="Poster")]
+        [Authorize(Roles = "Poster")]
         [HttpGet]
         public ActionResult CrearPost(string message)
         {
@@ -229,7 +229,7 @@ namespace WebApp_Prog3.Controllers
             return View(post);
         }
 
-        [Authorize(Roles="Poster")]
+        [Authorize(Roles = "Poster")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CrearPost(Post c, HttpPostedFileBase imagenSisi)
@@ -248,7 +248,7 @@ namespace WebApp_Prog3.Controllers
                 c.Logo = imagenData;
             }
 
-            if( c.NombreCategoria == 0)
+            if (c.NombreCategoria == 0)
             {
                 return CrearPost("Debes seleccionar una Categoria.");
             }
@@ -272,24 +272,10 @@ namespace WebApp_Prog3.Controllers
                     return View(c);
                 }
             }
-            
+
         }
 
-        public ActionResult GetImage(int id)
-        {
-            PostClient post = new PostClient();
-            var imagen = post.Get(id);
-            try
-            {
-                return File(imagen.Logo, "image/jpg");
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
-        [Authorize(Roles= "Poster")]
+        [Authorize(Roles = "Poster")]
         public ActionResult EditarPost(string message)
         {
             ViewBag.Message = message;
@@ -298,7 +284,7 @@ namespace WebApp_Prog3.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Poster")]
-        public ActionResult EditarPost(int id,int categoria, int ciudad, int pais, int tipotrabajo, string correo, string empresa,  string posicion,  string descripcion, string calle, int idPoster, string dUrl)
+        public ActionResult EditarPost(int id, int categoria, int ciudad, int pais, int tipotrabajo, string correo, string empresa, string posicion, string descripcion, string calle, int idPoster, string dUrl)
         {
             Post post = new Post();
             post.Id = id;
@@ -315,36 +301,6 @@ namespace WebApp_Prog3.Controllers
             ViewBag.Correo = correo;
             ViewBag.Foto = GetImage(id);
             return View("EditarPost", post);
-        }
-
-        [Authorize(Roles = "Poster")]
-        [HttpGet]
-        public ActionResult InfoPost(int id, int categoria, int ciudad, int pais, int tipotrabajo, string correo, string empresa, string posicion, string descripcion, string calle, int idPoster, string dUrl)
-        {
-            CiudadClient ciudadClient = new CiudadClient();
-            PaisClient paisClient = new PaisClient();
-            CategoriaClient categoriaClient = new CategoriaClient();
-            TipoTrabajoClient trabajoClient = new TipoTrabajoClient();
-
-            Post post = new Post();
-            post.Id = id;
-            post.Categorias = categoriaClient.Get(categoria).Nombre;
-            post.Ciudades = ciudadClient.Get(ciudad).Nombre;
-            post.Paises = paisClient.Get(pais).Nombre;
-            post.TipoTrabajos = trabajoClient.Get(tipotrabajo).Nombre;
-            post.NombreCategoria = categoria;
-            post.NombreCiudad = ciudad;
-            post.NombrePais = pais;
-            post.NombreTipoTrabajo = tipotrabajo;
-            post.NombrePosicion = posicion;
-            post.Descripcion = descripcion;
-            post.NombreCalle = calle;
-            post.DireccionUrl = dUrl;
-            ViewBag.Empresa = empresa;
-            post.Poster = idPoster;
-            ViewBag.Correo = correo;
-            ViewBag.Foto = GetImage(id);
-            return View(post);
         }
 
         [Authorize(Roles = "Poster")]
@@ -401,5 +357,52 @@ namespace WebApp_Prog3.Controllers
             postClient.Delete(id);
             return RedirectToAction("ProfileAcc");
         }
+
+        public ActionResult GetImage(int id)
+        {
+            PostClient post = new PostClient();
+            var imagen = post.Get(id);
+            try
+            {
+                return File(imagen.Logo, "image/jpg");
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        
+        [Authorize(Roles = "Poster")]
+        [HttpGet]
+        public ActionResult InfoPost(int id, int categoria, int ciudad, int pais, int tipotrabajo, string correo, string empresa, string posicion, string descripcion, string calle, int idPoster, string dUrl)
+        {
+            CiudadClient ciudadClient = new CiudadClient();
+            PaisClient paisClient = new PaisClient();
+            CategoriaClient categoriaClient = new CategoriaClient();
+            TipoTrabajoClient trabajoClient = new TipoTrabajoClient();
+
+            Post post = new Post();
+            post.Id = id;
+            post.Categorias = categoriaClient.Get(categoria).Nombre;
+            post.Ciudades = ciudadClient.Get(ciudad).Nombre;
+            post.Paises = paisClient.Get(pais).Nombre;
+            post.TipoTrabajos = trabajoClient.Get(tipotrabajo).Nombre;
+            post.NombreCategoria = categoria;
+            post.NombreCiudad = ciudad;
+            post.NombrePais = pais;
+            post.NombreTipoTrabajo = tipotrabajo;
+            post.NombrePosicion = posicion;
+            post.Descripcion = descripcion;
+            post.NombreCalle = calle;
+            post.DireccionUrl = dUrl;
+            ViewBag.Empresa = empresa;
+            post.Poster = idPoster;
+            ViewBag.Correo = correo;
+            ViewBag.Foto = GetImage(id);
+            return View(post);
+        }
+
+       
     }
 }
