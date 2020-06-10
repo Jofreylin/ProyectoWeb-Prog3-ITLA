@@ -40,7 +40,7 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>*@
             </ul>
-            <form class="form-inline my-2 my-lg-0">
+            <div class="form-inline my-2 my-lg-0">
                 @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "" }))
                 {
                     @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-2", @placeholder = "Algo mas especifico", @type = "search" })
@@ -65,7 +65,7 @@
                     <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-outline-secondary mr-sm-2 active" })</a>
                     <a>@Html.ActionLink("Registrarse", "RegistrarPoster", "UserPoster", null, new { @class = "btn btn-outline-info my-2 my-sm-0 btn-sm active" })</a>
                 }
-            </form>
+            </div>
         </div>
     </nav>
 
