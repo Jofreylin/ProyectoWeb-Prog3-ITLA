@@ -25,16 +25,13 @@ namespace WebApp_Prog3.Models
         public string Email { get; set; }
         
         [Display(Name = "Confirmar email")]
-        [Compare("Email", ErrorMessage = "El email y la confirmacion no coinciden.")]
         public string ConfirmarEmail { get; set; }
         [Required]
         [StringLength(90)]
         [Display(Name = "Contraseña")]
         public string Contra { get; set; }
 
-        [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
-        [Compare("Contra", ErrorMessage = "La contraseña y la confirmacion no coinciden.")]
         public string ConfirmarContra { get; set; }
         [Column("Fecha_Creacion", TypeName = "datetime")]
         [Display(Name = "Fecha de creacion")]
@@ -45,9 +42,11 @@ namespace WebApp_Prog3.Models
         public string NombreCalle { get; set; }
         [Column("Nombre_Ciudad")]
         [Display(Name = "Ciudad")]
+        [Required]
         public int NombreCiudad { get; set; }
         [Column("Nombre_Pais")]
         [Display(Name = "Pais")]
+        [Required]
         public int NombrePais { get; set; }
 
         [ForeignKey(nameof(NombreCiudad))]

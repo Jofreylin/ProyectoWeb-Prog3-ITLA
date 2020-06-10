@@ -76,18 +76,9 @@ namespace WebApp_Prog3.Controllers
         [HttpGet]
         public ActionResult RegistrarPoster(string message)
         {
-            CiudadClient ciudad = new CiudadClient();
-            PaisClient pais = new PaisClient();
-            var elementoCiudad = ciudad.GetAll();
-            var elementoPais = pais.GetAll();
-            SelectList listPais = new SelectList(elementoPais, "Id", "Nombre");
-            SelectList listCiudad = new SelectList(elementoCiudad, "Id", "Nombre");
+            UserPoster userPoster = new UserPoster();
             ViewBag.Message = message;
-            ViewBag.Ciudad = listCiudad;
-
-            ViewBag.Pais = listPais;
-            ViewBag.ListPais = elementoPais;
-            return View();
+            return View(userPoster);
         }
 
         [HttpPost]
@@ -95,38 +86,69 @@ namespace WebApp_Prog3.Controllers
         public ActionResult RegistrarPoster(UserPoster c)
         {
             UserPosterClient posterClient = new UserPosterClient();
-            c.Email = c.Email.ToLower();
-            if (posterClient.FindCorreo(c))
+            if (ModelState.IsValid)
             {
-                return RegistrarPoster("Ya existe una cuenta registrada con ese correo");
-            }
-            else
-            {
-
-                if (ModelState.IsValid)
+                c.Email = c.Email.ToLower();
+                c.ConfirmarEmail = c.ConfirmarEmail.ToLower();
+                if (c.Email == c.ConfirmarEmail)
                 {
-                    posterClient.Add(c);
-                    return RedirectToAction("Index");
+                    if (c.Contra == c.ConfirmarContra)
+                    {
+                        if (c.NombreCiudad == 0 || c.NombrePais == 0)
+                        {
+                            return RegistrarPoster("Asegurese de haber seleccionado un pais y su ciudad correspondiente.");
+                        }
+                        else
+                        {
+                            if (posterClient.FindCorreo(c))
+                            {
+                                return RegistrarPoster("Ya existe una cuenta registrada con ese correo");
+                            }
+                            else
+                            {
+                                posterClient.Add(c);
+                                return RedirectToAction("Index");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return RegistrarPoster("Las Contraseñas no coinciden");
+                    }
                 }
                 else
                 {
-                    return View(c);
+                    return RegistrarPoster("Los Emails no coinciden");
                 }
+            }
+            else
+            {
+                return View(c);
             }
 
         }
 
-        public void UpdateViewBagCiudad(int id)
+
+        public JsonResult UpdateViewBagCiudad(int id)
         {
             CiudadClient ciudadClient = new CiudadClient();
             var elemento = ciudadClient.GetAll();
+            elemento.OrderBy(x => x.Nombre);
             var v = (from a in elemento
                      where a.NombrePais == id
                      select a
                      );
-            SelectList selectListItems = new SelectList(v.ToList(), "Id", "Nombre");
-            ViewBag.Ciudad = selectListItems;
 
+            SelectList selectListItems = new SelectList(v.ToList(), "Id", "Nombre");
+            //ViewBag.Ciudad = selectListItems;
+            List<SelectListItem> PList = new List<SelectListItem>();
+            PList = v.Select(i => new SelectListItem()
+            {
+                Text = i.Nombre,
+                Value = i.Id.ToString()
+            }).ToList();
+            ViewBag.Ciudad = selectListItems;
+            return Json(selectListItems, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Poster")]

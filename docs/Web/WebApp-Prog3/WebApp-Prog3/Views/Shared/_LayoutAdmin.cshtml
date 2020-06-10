@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Bolsa de empleos</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg  bg-light shadow sticky-top ">
+        <a>@Html.ActionLink("Panel Principal", "ProfileAcc", "UserAdmin", null, new { @class = "navbar-brand text-dark" })</a>
+        <button class="navbar-toggler shadow" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav">
+                <a>@Html.ActionLink("Posters", "GestionUserPoster", "UserAdmin", null, new { @class = "nav-item nav-link" })</a>
+                <a class="nav-item nav-link" href="#">Features</a>
+                <a class="nav-item nav-link" href="#">Pricing</a>
+                <a>@Html.ActionLink("LogOut", "LogOut", "UserAdmin", null, new { @class = "btn btn-warning" })</a>
+            </div>
+        </div>
+        
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - TEAM 4 PROGRAMACION 3</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
