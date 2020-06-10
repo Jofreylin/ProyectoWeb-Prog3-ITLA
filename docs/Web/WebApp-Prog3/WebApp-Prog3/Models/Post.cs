@@ -14,17 +14,20 @@ namespace WebApp_Prog3.Models
         [Column("ID")]
         [Display(Name = "ID")]
         public int Id { get; set; }
+        [Required]
         [Column("Nombre_Categoria")]
         [Display(Name = "Categoria")]
         public int NombreCategoria { get; set; }
+        [Required]
         [Column("Nombre_Tipo_Trabajo")]
         [Display(Name = "Tipo de trabajo")]
         public int NombreTipoTrabajo { get; set; }
+        [Required]
         [Display(Name = "Poster")]
         public int Poster { get; set; }
-        [Display(Name = "Logo")]
+        [Display(Name = "Logo (Recomendable: 400px X 400px)")]
         public byte[] Logo { get; set; }
-        [Display(Name = "URL de sitio web")]
+        [Display(Name = "Direccion URL de Sitio Web")]
         [Column("Direccion_URL")]
         public string DireccionUrl { get; set; }
         [Required]
@@ -38,9 +41,11 @@ namespace WebApp_Prog3.Models
         public string NombreCalle { get; set; }
         [Column("Nombre_Ciudad")]
         [Display(Name = "Ciudad")]
+        [Required]
         public int NombreCiudad { get; set; }
         [Column("Nombre_Pais")]
         [Display(Name = "Pais")]
+        [Required]
         public int NombrePais { get; set; }
         [Required]
         [Display(Name = "Descripcion del empleo")]
@@ -63,6 +68,8 @@ namespace WebApp_Prog3.Models
         public virtual TipoTrabajo NombreTipoTrabajoNavigation { get; set; }
 
         public string Categorias { get; set; }
+
+        [Display(Name ="Empresa")]
         public string Posters { get; set; }
         public string Ciudades { get; set; }
         public string Paises { get; set; }

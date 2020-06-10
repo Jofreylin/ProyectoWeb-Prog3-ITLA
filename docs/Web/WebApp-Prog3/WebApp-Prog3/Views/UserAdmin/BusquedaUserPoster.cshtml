@@ -33,9 +33,7 @@
                     <th scope="col">Nombre Empresa</th>
                     <th scope="col">Email</th>
                     <th scope="col">Ubicacion</th>
-                    <th scope="col">Posts creados</th>
                     <th scope="col">Fecha (MM/DD/YYY)</th>
-                    
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +44,6 @@
                         <td>@Html.DisplayFor(model => post.NombreEmpresa)</td>
                         <td>@Html.DisplayFor(model => post.Email)</td>
                         <td>@Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
-                        <td></td>
                         <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
                         <td>
                             @Html.ActionLink("Gestionar", "GestionUserPoster", "UserAdmin", new { id = post.Id , nombreEmpresa = post.NombreEmpresa, email = post.Email, calle = post.NombreCalle, ciudad = post.Ciudades, pais = post.Paises, contra = post.Contra, fechaCreacion = post.FechaCreacion }, new { @class = "btn btn-outline-info" })
