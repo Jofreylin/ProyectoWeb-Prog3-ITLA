@@ -66,13 +66,31 @@ namespace WebApp_Prog3.Controllers
         [Authorize(Roles = "Poster")]
         public ActionResult ProfileAcc()
         {
+            UserPosterClient poster = new UserPosterClient();
+            CategoriaClient categoria = new CategoriaClient();
+            PostClient post = new PostClient();
+            PaisClient pais = new PaisClient();
+            var elementoPais = pais.GetAll();
+            var elementoPoster = poster.GetAll();
+            var elementoCategoria = categoria.GetAll();
+            var elementov = elementoPoster.Single(x => x.Email == User.Identity.Name);
+            var elementoposts = post.GetAll().Where(c => c.Poster == elementov.Id);
+            ViewBag.Cuenta = elementov;
+            ViewBag.CountPosts = elementoposts.Count();
+
+            elementoCategoria = elementoCategoria.OrderByDescending(x => x.Cantidad);
+            var e = new List<Post>();
+            foreach(var i in elementoposts)
+            {
+                i.Categorias = elementoCategoria.Single(x => x.Id == i.NombreCategoria).Nombre;
+            }
+
+            elementov.Paises = elementoPais.Single(x => x.Id == elementov.NombrePais).Nombre;
+
+            ViewBag.ListPosts = elementoposts;
+            ViewBag.Country = elementov.Paises;
             return View();
         }
-
-        //public ActionResult RegistrarPoster()
-        //{
-        //    return View();
-        //}
 
         [HttpGet]
         public ActionResult RegistrarPoster(string message)

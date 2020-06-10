@@ -3,207 +3,116 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>WELCOME(NOMBRE DEL USUARIO)</h1>
-<!DOCTYPE html>
-<html lang="en">
+    <style>
+        #tablecita {
+            display: block;
+            height: 500px;
+        }
+    </style>
+<div class="main-panel">
 
-<head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-  
-    </title>
-    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="/css/bootstrap.css" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/demo/demo.css" rel="stylesheet" />
-</head>
-
-<body class="">
-    <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-            <!--
-                Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-                Tip 2: you can also add an image using data-image tag
-            -->
-
-
-        </div>
-        <div class="main-panel">
-
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        @*PRIMERA CART*@
-
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-warning card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="fa fa-male"></i>
-                                    </div>
-
-                                    <p class="card-category">VIEWS</p>
-                                    <h3 class="card-title">
-                                        99999
-                                        <small>PERSONS</small>
-                                    </h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                     
-                                   
-                                    </div>
-                                </div>
+    <div class="content">
+        <div class="container-fluid ">
+            <div class=" row text-center">
+                @*PRIMERA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-window-maximize"></i>
                             </div>
+                            <p class="card-category">POSTS</p>
+                            <h3 class="card-title">@ViewBag.CountPosts</h3>
                         </div>
-                        @*SEGUNDA CART*@
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-success card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="fa fa-window-maximize"></i>
-                                    </div>
-                                    <p class="card-category">POSTER</p>
-                                    <h3 class="card-title">50,000</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*TERCERA CART*@
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-danger card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="fa fa-user"></i>
-                                    </div>
-                                    <p class="card-category">ID USER</p>
-                                    <h3 class="card-title">75</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*CUARTA CART*@
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header card-header-info card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="fa fa-globe"></i>
-                                    </div>
-                                    <p class="card-category">COUNTRY</p>
-                                    <h3 class="card-title">HAITI</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        
-                                    </div>
-                                </div>
+                        <div class="card-footer">
+                            <div class="stats">
+
+                                @*<a href="javascript:;">ELLA NO TE AMA</a>*@
                             </div>
                         </div>
                     </div>
+                </div>
+                @*SEGUNDA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <p class="card-category">EMPRESA</p>
+                            <h3 class="card-title">@ViewBag.Cuenta.NombreEmpresa</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
 
-
-            
-                        
-                            <div class="card">
-                                <div class="card-header card-header-warning">
-                                    <h4 class="card-title">POSTERS</h4>
-
-                                </div>
-                                @*TABLE OF POSTER----------------------------------------------------------------*@
-                                <div class="card-body table-responsive">
-                                    <table class="table table-hover">
-                                        <thead class="text-warning">
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>POSTER</th>
-                                        <th>ACTIONS</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>CIBER SEGURIDAD</td>
-                                                <td>BUSCO CHINO PICAPOLLERO</td>
-
-                                                <td>
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>DISEÑO</td>
-                                                <td>BUSCO CHINO PICAPOLLERO</td>
-
-                                                <td>
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>EBANISTA</td>
-                                                <td>BUSCO CHINO PICAPOLLERO</td>
-
-                                                <td>
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>PROGRAMACION</td>
-                                                <td>BUSCO CHINO PICAPOLLERO</td>
-
-                                                <td>
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
-                    
+                    </div>
+                </div>
+                @*TERCERA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <p class="card-category">PAIS</p>
+                            <h3 class="card-title">@ViewBag.Country</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-</body>
+            <br />
+            <br />
+            <div class="card">
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title">POSTERS</h4>
+
+                </div>
+                @*TABLE OF POSTER----------------------------------------------------------------*@
+                <div>
+                    <div class="card-body table-responsive">
+                        <div id="tablecita">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <tr>
+                                        <th>Posicion</th>
+                                        <th>Categoria</th>
+                                        <th>Fecha</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.ListPosts)
+                                    {
+                                        <tr>
+                                            <td>@item.NombrePosicion</td>
+                                            <td>@item.Categorias</td>
+                                            <td>@item.FechaCreacion</td>
+                                            <td>
+                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+
+                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
