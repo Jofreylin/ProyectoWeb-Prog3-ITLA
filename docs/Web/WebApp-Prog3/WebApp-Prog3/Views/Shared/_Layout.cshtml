@@ -13,74 +13,75 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 </head>
-<body class="bg-light">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg sticky-top">
-        @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-brand" })
+<body class="bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
+        @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     @Html.ActionLink("Categorias", "Categorias", "Home", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> </a>
-                </li>
-                <li class="nav-item container">
-                    @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "form-inline" }))
-                    {
-
-                        @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-4", @placeholder = "Algo mas especifico" })
-                        <button class="btn btn-outline-primary " type="submit">Buscar</button>
-
-                    }
-                </li>
-
+                @*<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>*@
             </ul>
-            <form class="form-inline my-2 my-lg-0 ">
-                @Html.ActionLink(" Publicar Trabajo", "CrearPost", "UserPoster", null, new { @class = "btn btn-success mr-sm-3" })
+            <form class="form-inline my-2 my-lg-0">
+                @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "" }))
+                {
+                    @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-2", @placeholder = "Algo mas especifico", @type = "search" })
+                    <button class="btn btn-outline-primary mr-sm-5" type="submit">Buscar</button>
+                }
+                @Html.ActionLink(" Publicar Trabajo", "CrearPost", "UserPoster", null, new { @class = "btn btn-success mr-sm-5" })
                 @if (User.Identity.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
-                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserAdmin", null, new { @class = "btn btn-outline-warning my-2 my-sm-0" })</a>
+                        <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "fa fa-user btn btn-warning mr-sm-2" })</a>
+                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserAdmin", null, new { @class = "btn btn-outline-warning my-2 my-sm-0 btn-sm" })</a>
                     }
                     else if (User.IsInRole("Poster"))
                     {
-                        <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserPoster", null, new { @class = "fa fa-user btn btn-warning my-2 my-sm-0" })</a>
-                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserPoster", null, new { @class = "btn btn-outline-warning my-2 my-sm-0" })</a>
+                        <a>@Html.ActionLink(" Perfil", "ProfileAcc", "UserPoster", null, new { @class = "fa fa-user btn btn-warning mr-sm-2" })</a>
+                        <a>@Html.ActionLink(" LogOut", "LogOut", "UserPoster", null, new { @class = "btn btn-outline-warning my-2 my-sm-0 btn-sm" })</a>
                     }
                 }
                 else
                 {
-                    <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-outline-secondary mr-sm-3 active" })</a>
+                    <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-outline-secondary mr-sm-2 active" })</a>
                     <a>@Html.ActionLink("Registrarse", "RegistrarPoster", "UserPoster", null, new { @class = "btn btn-outline-info my-2 my-sm-0 btn-sm active" })</a>
                 }
-
             </form>
-            @*<ul class="navbar-nav mr-sm-4 ">
-                <li>
-                    <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Register</a>
-                </li>
-                <li>
-                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
-                </li>
-            </ul>*@
         </div>
     </nav>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TEAM 4 PROGRAMACION 3</p>
-        </footer>
-    </div>
 
+        <br />
+        <br />
+        <hr />
+        <br />
+    </div>
+    <footer class="bg-dark" style="height:300px">
+        <div class="container body-content text-center">
+            <h3 class="text-white">&copy; @DateTime.Now.Year - TEAM 4 [ PROGRAMACION 3 ]</h3>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
