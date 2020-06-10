@@ -1,0 +1,91 @@
+﻿@model WebApp_Prog3.Models.Post
+@{
+    ViewBag.Title = "Info Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center ">
+                <form>
+                    <div class="">
+                        <div class="col-md-10">
+                            <h6>Empresa: <strong>@ViewBag.Empresa</strong></h6>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.NombreCategoria, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Categorias, new { @class = "form-control", @id = "CategoriaTextBox", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.NombreTipoTrabajo, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.TipoTrabajos, new { @class = "form-control", @id = "TrabajoTextBox", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.DireccionUrl, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.DireccionUrl, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label" })
+                        <div class="col-md-10">
+                            @if (ViewBag.Foto != null)
+                            {
+                                <img width="100" src="@Url.Action("GetImage", "UserPoster", new { id = Model.Id })" />
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.NombrePosicion, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.NombrePosicion, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Descripcion, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <h5>UBICACION</h5>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NombreCalle, new { @class = "col control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.NombreCalle, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NombrePais, htmlAttributes: new { @class = "control-label col" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Paises, new { @class = "form-control", @id = "PaisTextBox", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NombreCiudad, htmlAttributes: new { @class = "control-label col" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Ciudades, new { @class = "form-control", @id = "CiudadTextBox", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-md-10">
+                                <h6>Correo de contacto: <strong>@ViewBag.Correo</strong></h6>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.ActionLink("edit", "EditarPost", "Post", new { id = Model.Id, categoria = Model.NombreCategoria, ciudad = Model.NombreCiudad, pais = Model.NombrePais, tipotrabajo = Model.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = Model.NombreCalle, posicion = Model.NombrePosicion, descripcion = Model.Descripcion, IdPoster = Model.Poster, dUrl = Model.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+                                @Html.ActionLink("Volver Atras", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-primary mr-sm-4 ml-sm-4" })
+                                @Html.ActionLink("close", "EliminarPost", "Post", new { id = Model.Id }, new { @class = "btn btn-danger material-icons"})
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>

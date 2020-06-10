@@ -79,8 +79,7 @@
                                 <td>@Html.DisplayFor(model => post.TipoTrabajos)</td>
                                 <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
                                 <td>
-                                    @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })  
-                                    @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
+                                    @Html.ActionLink("Eliminar", "EliminarPost", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })    @Html.ActionLink("Editar", "EditarPost", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
                                 </td>
                             </tr>
                             }

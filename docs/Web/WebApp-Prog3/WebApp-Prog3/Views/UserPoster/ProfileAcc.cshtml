@@ -10,9 +10,13 @@
         }
     </style>
 <div class="main-panel">
-
+    
     <div class="content">
+        
         <div class="container-fluid ">
+            <h3>Bienvenido <strong>@ViewBag.Cuenta.Email</strong></h3>
+            <hr />
+            <br />
             <div class=" row text-center">
                 @*PRIMERA CART*@
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -72,7 +76,7 @@
             <br />
             <div class="card">
                 <div class="card-header card-header-warning">
-                    <h4 class="card-title">POSTERS</h4>
+                    <h4 class="card-title">POSTS</h4>
 
                 </div>
                 @*TABLE OF POSTER----------------------------------------------------------------*@
@@ -86,6 +90,7 @@
                                         <th>Categoria</th>
                                         <th>Fecha</th>
                                         <th>Acciones</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,13 +101,10 @@
                                             <td>@item.Categorias</td>
                                             <td>@item.FechaCreacion</td>
                                             <td>
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-secondary">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
+                                                @Html.ActionLink("info", "InfoPost", "UserPoster", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-primary material-icons" })
+                                                @Html.ActionLink("edit", "EditarPost", "Post", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+                                                @Html.ActionLink("close", "EliminarPost", "Post", new { id = item.Id }, new { @class = "btn btn-danger material-icons" })
 
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger ">
-                                                    <i class="material-icons">close</i>
-                                                </button>
                                             </td>
                                         </tr>
                                     }

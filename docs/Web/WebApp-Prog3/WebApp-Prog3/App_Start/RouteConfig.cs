@@ -19,16 +19,22 @@ namespace WebApp_Prog3
                 defaults: new { controller = "Categoria", action = "Index"}
             );
 
-            //routes.MapRoute(
-            //    name: "PerfilAdmin",
-            //    url: "Admin/{action}/{id}",
-            //    defaults: new { controller = "UserAdmin", action = "ProfileAcc", id = UrlParameter.Optional }
-            //);
+            routes.MapRoute(
+                name: "EditarPostPoster",
+                url: "UserPoster/EditarPost/",
+                defaults: new { controller = "UserPoster", action = "ProfileAcc" }
+            );
 
             routes.MapRoute(
                 name: "GestionarPosterAdmin",
                 url: "UserAdmin/GestionUserPoster/",
                 defaults: new { controller = "UserAdmin", action = "BusquedaUserPoster"}
+            );
+
+            routes.MapRoute(
+                name: "InfoPostPoster",
+                url: "UserPoster/InfoPost/",
+                defaults: new { controller = "UserPoster", action = "ProfileAcc" }
             );
 
             routes.MapRoute(
