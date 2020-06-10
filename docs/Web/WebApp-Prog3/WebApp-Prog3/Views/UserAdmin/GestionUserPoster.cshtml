@@ -56,7 +56,7 @@
         </div>
         <div>
             <div class="card-body table-responsive">
-                <div style="height:400px; display:block">
+                <div style="height:500px; display:block">
                     <table class="table table-bordered table-hover bg-white">
                         <thead>
                             <tr>
@@ -79,8 +79,7 @@
                                 <td>@Html.DisplayFor(model => post.TipoTrabajos)</td>
                                 <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
                                 <td>
-                                    @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })
-                                    |  @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
+                                    @Html.ActionLink("Eliminar", "Delete", "Post", new { id = post.Id }, new { @class = "btn btn-outline-danger" })    @Html.ActionLink("Editar", "Edit", "Post", new { id = post.Id }, new { @class = "btn btn-outline-warning" })
                                 </td>
                             </tr>
                             }
