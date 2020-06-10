@@ -153,7 +153,6 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\UserPosterController.cs" />
     <Compile Include="Global.asax.cs">

@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col">
         <div class="d-flex justify-content-center ">
-            @using (Html.BeginForm("EditarPost", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("EditarPost", "UserPoster", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 <div>
