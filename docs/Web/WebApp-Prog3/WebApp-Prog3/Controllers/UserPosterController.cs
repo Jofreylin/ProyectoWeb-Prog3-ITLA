@@ -360,7 +360,15 @@ namespace WebApp_Prog3.Controllers
         {
             PostClient postClient = new PostClient();
             postClient.Delete(id);
-            return RedirectToAction("ProfileAcc");
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("BusquedaUserPoster","UserAdmin");
+            }
+            else
+            {
+                return RedirectToAction("ProfileAcc");
+            }
+            
         }
 
         public ActionResult GetImage(int id)
@@ -499,6 +507,23 @@ namespace WebApp_Prog3.Controllers
             {
                 return View(c);
             }
+        }
+
+        [Authorize(Roles = "Poster, Admin")]
+        [HttpGet]
+        public ActionResult EliminarPoster(int id)
+        {
+            UserPosterClient posterClient = new UserPosterClient();
+            posterClient.Delete(id);
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("BusquedaUserPoster","UserAdmin");
+            }
+            else
+            {
+                return RedirectToAction("LogOut");
+            }
+            
         }
     }
 }
