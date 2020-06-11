@@ -47,6 +47,29 @@
                 @*@Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
         @Html.ActionLink("close", "EliminarPost", "UserPoster", new { id = item.Id }, new { @class = "btn btn-danger material-icons" })*@
                 @Html.ActionLink("edit", "EditarPoster", "UserPoster", new { id = ViewBag.IdPoster, idPais = ViewBag.IdPais, idCiudad = ViewBag.IdCiudad, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = ViewBag.Calle }, new { @class = "btn btn-secondary material-icons" })
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="material-icons">close</i>
+                </button>
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Esta seguro de que desea eliminar esta cuenta? Se borraran todos los Posts realizados.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                @Html.ActionLink("Eliminar", "EliminarPoster", "UserPoster", new { id = ViewBag.IdPoster }, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
@@ -82,9 +105,32 @@
                                 <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
                                 <td>@Html.DisplayFor(model => post.TipoTrabajos)</td>
                                 <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
-                                <td>                                    
+                                <td>
                                     @Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = post.Id, categoria = post.NombreCategoria, ciudad = post.NombreCiudad, pais = post.NombrePais, tipotrabajo = post.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = post.NombreCalle, posicion = post.NombrePosicion, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
-                                    @Html.ActionLink("close", "EliminarPost", "UserPoster", new { id = post.Id }, new { @class = "btn btn-danger material-icons" })
+
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter2">
+                                        <i class="material-icons">close</i>
+                                    </button>
+
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Esta seguro de que desea eliminar este Post?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    @Html.ActionLink("Eliminar", "EliminarPost", "UserPoster", new { id = post.Id }, new { @class = "btn btn-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             }

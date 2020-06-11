@@ -18,7 +18,7 @@
                         @Html.ActionLink("Buscar esta categoria", "Busqueda", new { buscar = cat.Nombre, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" },new { @class = "btn btn-dark" })
                     </div>
                     <div class="card-footer">
-                        <strong class="text-muted">
+                        @*<strong class="text-muted">
                             Cantidad de trabajos en esta categoria:
 
                             @if (cat.Cantidad < 1)
@@ -30,7 +30,7 @@
                                 <strong class="text-success">@cat.Cantidad</strong>
                             }
 
-                        </strong>
+                        </strong>*@
                     </div>
                 </div>
             }
