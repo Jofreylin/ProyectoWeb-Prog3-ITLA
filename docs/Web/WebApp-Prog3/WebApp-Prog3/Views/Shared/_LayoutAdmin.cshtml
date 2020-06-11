@@ -20,21 +20,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav">
                 <a>@Html.ActionLink("Posters", "BusquedaUserPoster", "UserAdmin", null, new { @class = "nav-item nav-link" })</a>
-                
+
                 <a>@Html.ActionLink("LogOut", "LogOut", "UserAdmin", null, new { @class = "btn btn-warning mr-sm-3" })</a>
             </div>
         </div>
-        
+
     </nav>
 
-    <div class="container body-content">
+    <div class="container body-content min-vh-100">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TEAM 4 PROGRAMACION 3</p>
-        </footer>
-    </div>
 
+        <br />
+        <br />
+        <hr />
+        <br />
+    </div>
+    <footer class="bg-dark" style="height:300px">
+        <br />
+        <br />
+        <div class="container body-content text-center">
+            <h3 class="text-white">&copy; @DateTime.Now.Year - TEAM 4 [ PROGRAMACION 3 ]</h3>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

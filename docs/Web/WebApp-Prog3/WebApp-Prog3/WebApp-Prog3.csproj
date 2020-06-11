@@ -339,6 +339,8 @@
     <Content Include="Views\Shared\_PartialCargarTiposTrabajos.cshtml" />
     <Content Include="Views\UserPoster\EditarPost.cshtml" />
     <Content Include="Views\UserPoster\InfoPost.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogins.cshtml" />
+    <Content Include="Views\UserPoster\EditarPoster.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

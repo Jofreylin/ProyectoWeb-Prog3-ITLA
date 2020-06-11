@@ -173,7 +173,7 @@ namespace WebApp_Prog3.Controllers
             return Json(selectListItems, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         public ActionResult Delete(int id)
         {
             UserPosterClient userPosterClient = new UserPosterClient();
@@ -181,14 +181,14 @@ namespace WebApp_Prog3.Controllers
             return RedirectToAction("ProfileAcc");
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         public ActionResult Edit(string message)
         {
             ViewBag.Message = message;
             return View();
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -200,7 +200,7 @@ namespace WebApp_Prog3.Controllers
             return View("Edit", c);
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserPoster c)
@@ -279,7 +279,7 @@ namespace WebApp_Prog3.Controllers
 
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         public ActionResult EditarPost(string message)
         {
             ViewBag.Message = message;
@@ -287,7 +287,7 @@ namespace WebApp_Prog3.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         public ActionResult EditarPost(int id, int categoria, int ciudad, int pais, int tipotrabajo, string correo, string empresa, string posicion, string descripcion, string calle, int idPoster, string dUrl)
         {
             Post post = new Post();
@@ -307,7 +307,7 @@ namespace WebApp_Prog3.Controllers
             return View("EditarPost", post);
         }
 
-        [Authorize(Roles = "Poster")]
+        [Authorize(Roles = "Poster, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarPost(Post c, HttpPostedFileBase imagenSisi)
@@ -354,6 +354,7 @@ namespace WebApp_Prog3.Controllers
             }
         }
 
+        [Authorize(Roles = "Poster, Admin")]
         [HttpGet]
         public ActionResult EliminarPost(int id)
         {
@@ -407,6 +408,97 @@ namespace WebApp_Prog3.Controllers
             return View(post);
         }
 
-       
+        public ActionResult EditarPoster(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
+
+        [Authorize(Roles = "Poster, Admin")]
+        [HttpGet]
+        public ActionResult EditarPoster(int id, int idPais, int idCiudad, string correo, string empresa, string calle)
+        {
+            UserPoster userPoster = new UserPoster();
+            userPoster.Id = id;
+            userPoster.NombrePais = idPais;
+            userPoster.NombreCiudad = idCiudad;
+            userPoster.Email = correo;
+            userPoster.ConfirmarEmail = correo;
+            userPoster.NombreCalle = calle;
+            userPoster.NombreEmpresa = empresa;
+            return View("EditarPoster",userPoster);
+        }
+
+        [Authorize(Roles = "Poster, Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarPoster(UserPoster c)
+        {
+            UserPosterClient posterClient = new UserPosterClient();
+            var elemento = posterClient.Get(c.Id);
+            if (ModelState.IsValid)
+            {
+                c.Email = c.Email.ToLower();
+                c.ConfirmarEmail = c.ConfirmarEmail.ToLower();
+                if (c.Email == c.ConfirmarEmail)
+                {
+                    if (elemento.Contra == c.Contra)
+                    {
+                        if (c.NombreCiudad == 0 || c.NombrePais == 0)
+                        {
+                            return EditarPoster("Debes seleccionar un pais y su ciudad correspondiente.");
+                        }
+                        else
+                        {
+                            if(elemento.Email == c.Email)
+                            {
+                                posterClient.Update(c);
+                                if (User.IsInRole("Poster"))
+                                {
+                                    return RedirectToAction("Logout");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("GestionUserPoster", "UserAdmin");
+                                }
+                            }
+                            else
+                            {
+                                if (posterClient.FindCorreo(c))
+                                {
+                                    return EditarPoster("Ya existe una cuenta registrada con ese correo");
+                                }
+                                else
+                                {
+                                    posterClient.Update(c);
+                                    if (User.IsInRole("Poster"))
+                                    {
+                                        return RedirectToAction("Logout");
+                                    }
+                                    else
+                                    {
+                                        return RedirectToAction("GestionUserPoster", "UserAdmin");
+                                    }
+
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        return EditarPoster("Las Contraseñas no coinciden");
+                    }
+                }
+                else
+                {
+                    return EditarPoster("Los Emails no coinciden");
+                }
+            }
+            else
+            {
+                return View(c);
+            }
+        }
     }
 }
