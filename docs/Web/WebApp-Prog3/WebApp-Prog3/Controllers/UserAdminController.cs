@@ -187,7 +187,7 @@ namespace WebApp_Prog3.Controllers
 
         //[Authorize(Roles = "Admin")]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult GestionUserPoster(int id, string nombreEmpresa, string contra, string email, DateTime fechaCreacion , string calle, string ciudad, string pais)
+        public ActionResult GestionUserPoster(int id, int idCiudad, int idPais, string nombreEmpresa, string contra, string email, DateTime fechaCreacion , string calle, string ciudad, string pais)
         {
             PostClient posts = new PostClient();
             var elementoPosts = posts.GetUserPoster(id);
@@ -198,13 +198,15 @@ namespace WebApp_Prog3.Controllers
             var e = new List<Post>();
             foreach(var i in elementoPosts)
             {
-                i.TipoTrabajos = tipo.FindTipoTrabajo(i.NombreTipoTrabajo);
-                i.Categorias = categoria.FindCategory(i.NombreCategoria);
-                i.Ciudades = ciudadClient.FindCiudad(i.NombreCiudad);
-                i.Paises = paisClient.FindPais(i.NombrePais);
+                i.TipoTrabajos = tipo.Get(i.NombreTipoTrabajo).Nombre;
+                i.Categorias = categoria.Get(i.NombreCategoria).Nombre;
+                i.Ciudades = ciudadClient.Get(i.NombreCiudad).Nombre;
+                i.Paises = paisClient.Get(i.NombrePais).Nombre;
                 e.Add(i);
             }
 
+            ViewBag.IdPais = idPais;
+            ViewBag.IdCiudad = idCiudad;
             ViewBag.Contra = contra;
             ViewBag.Empresa = nombreEmpresa;
             ViewBag.Pais = pais;

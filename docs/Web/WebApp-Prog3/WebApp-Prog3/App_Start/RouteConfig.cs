@@ -38,6 +38,12 @@ namespace WebApp_Prog3
             );
 
             routes.MapRoute(
+                name: "EditarPoster",
+                url: "UserPoster/EditarPoster/",
+                defaults: new { controller = "UserPoster", action = "ProfileAcc" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

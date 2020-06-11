@@ -1,7 +1,14 @@
 ﻿@model WebApp_Prog3.Models.Post
 @{
     ViewBag.Title = "Editar Post";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
     if(!String.IsNullOrEmpty(ViewBag.Message))
     {
@@ -122,7 +129,7 @@
                 <div class="form-group">
                     <div class="col">
                         <input type="submit" class="btn btn-success" value="Editar Trabajo" />
-                        @Html.ActionLink("Cancelar", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-danger ml-sm-2" })
+                        <input type="button" value="Cancelar" onclick="history.back()" class="btn btn-danger ml-sm-2">
                     </div>
                 </div>
             }

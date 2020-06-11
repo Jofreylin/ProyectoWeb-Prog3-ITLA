@@ -139,6 +139,7 @@
 
                             </tbody>
                         </table>
+                        @Html.ActionLink("edit", "EditarPoster", "UserPoster", new { id = ViewBag.Cuenta.Id, idPais = ViewBag.Cuenta.NombrePais, idCiudad = ViewBag.Cuenta.NombreCiudad, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = ViewBag.Cuenta.NombreCalle  }, new { @class = "btn btn-secondary material-icons" })
                     </div>
                 </div>
             </div>
