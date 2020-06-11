@@ -60,7 +60,7 @@ namespace WebApp_Prog3.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "UserAdmin");
+            return RedirectToAction("Index", "UserPoster");
         }
 
         [Authorize(Roles = "Poster")]
@@ -70,7 +70,9 @@ namespace WebApp_Prog3.Controllers
             CategoriaClient categoria = new CategoriaClient();
             PostClient post = new PostClient();
             PaisClient pais = new PaisClient();
+            CiudadClient ciudad = new CiudadClient();
             var elementoPais = pais.GetAll();
+            var elementoCiudad = ciudad.GetAll();
             var elementoPoster = poster.GetAll();
             var elementoCategoria = categoria.GetAll();
             var elementov = elementoPoster.Single(x => x.Email == User.Identity.Name);
@@ -86,9 +88,11 @@ namespace WebApp_Prog3.Controllers
             }
 
             elementov.Paises = elementoPais.Single(x => x.Id == elementov.NombrePais).Nombre;
+            elementov.Ciudades = elementoCiudad.Single(x => x.Id == elementov.NombreCiudad).Nombre;
 
             ViewBag.ListPosts = elementoposts;
             ViewBag.Country = elementov.Paises;
+            ViewBag.City = elementov.Ciudades;
             return View();
         }
 

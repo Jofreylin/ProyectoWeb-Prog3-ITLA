@@ -14,9 +14,6 @@
     <div class="content">
         
         <div class="container-fluid ">
-            <h3>Bienvenido <strong>@ViewBag.Cuenta.Email</strong></h3>
-            <hr />
-            <br />
             <div class=" row text-center">
                 @*PRIMERA CART*@
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -74,7 +71,7 @@
 
             <br />
             <br />
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header card-header-warning">
                     <h4 class="card-title">POSTS</h4>
 
@@ -112,6 +109,36 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br />
+                <br />
+                <div class="card  shadow">
+                    <br />
+                    <div class="card-header bg-light">
+                        <h4 class="text-center">Info Personal</h4>
+                    </div>
+                    
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><h6 class="">Empresa: <strong>@ViewBag.Cuenta.NombreEmpresa</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Email: <strong>@ViewBag.Cuenta.Email</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Ubicacion: <strong>@ViewBag.Cuenta.NombreCalle, @ViewBag.City, @ViewBag.Country</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Fecha de registro: <strong>@ViewBag.Cuenta.FechaCreacion</strong></h6></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
