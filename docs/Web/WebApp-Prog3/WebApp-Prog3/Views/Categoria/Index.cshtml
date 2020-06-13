@@ -19,8 +19,10 @@
                     <td>@categoria.Id</td>
                     <td>@categoria.Nombre</td>
                     <td>
-                        @Html.ActionLink("Eliminar","Delete","Categoria",new {id = categoria.Id }, new {@class ="btn btn-outline-danger" })
-                         | @Html.ActionLink("Editar","Edit","Categoria",new {id = categoria.Id }, new {@class ="btn btn-outline-warning" })
+
+                        @Html.ActionLink("Editar", "Edit", "Categoria", new { id = categoria.Id }, new { @class = "btn btn-outline-warning" })
+
+                        @Html.ActionLink("Eliminar", "Delete", "Categoria", new { id = categoria.Id }, new { @class = "btn btn-outline-danger" })
                     </td>
                 </tr>
             }
