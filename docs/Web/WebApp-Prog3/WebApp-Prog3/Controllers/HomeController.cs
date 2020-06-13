@@ -46,6 +46,7 @@ namespace WebApp_Prog3.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Busqueda(string buscar,string sortOrder, string sortBy, int pageNumber = 1)
         {
+            
             PostClient postClient = new PostClient();
             CategoriaClient categoriaClient = new CategoriaClient();
             UserPosterClient userPoster = new UserPosterClient();
@@ -71,9 +72,11 @@ namespace WebApp_Prog3.Controllers
             {
                 buscar = buscar.ToUpper();
                 var v = (from a in e
-                         where a.Categorias.Contains(buscar) ||
-                               a.Posters.Contains(buscar) ||
-                               a.NombrePosicion.Contains(buscar)
+                         where a.Categorias.ToUpper().Contains(buscar) ||
+                               a.Posters.ToUpper().Contains(buscar) ||
+                               a.NombrePosicion.ToUpper().Contains(buscar) ||
+                               a.Paises.ToUpper().Contains(buscar) ||
+                               a.Ciudades.ToUpper().Contains(buscar)
                          select a);
                 lista = v.ToList();
                 lista = ApplySorting(sortOrder, sortBy, lista);
