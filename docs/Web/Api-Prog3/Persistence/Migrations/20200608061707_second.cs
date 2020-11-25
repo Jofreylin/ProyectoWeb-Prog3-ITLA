@@ -7,13 +7,7 @@ namespace Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "Cantidad",
-                table: "CIUDAD",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldDefaultValueSql: "(0)");
+            
 
             migrationBuilder.AlterColumn<byte[]>(
                 name: "Logo",
@@ -27,13 +21,7 @@ namespace Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "Cantidad",
-                table: "CIUDAD",
-                type: "int",
-                nullable: false,
-                defaultValueSql: "(0)",
-                oldClrType: typeof(int));
+            
 
             migrationBuilder.AlterColumn<byte[]>(
                 name: "Logo",

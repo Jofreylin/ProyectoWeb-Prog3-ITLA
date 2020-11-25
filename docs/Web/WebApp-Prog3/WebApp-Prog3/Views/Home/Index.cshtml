@@ -11,82 +11,86 @@
         <h5>Puestos de trabajo publicados hoy</h5>
     </div>
     <br />
-    @foreach (var cate in ViewBag.ListCategories)
+    @if (ViewBag.ListCategories != null)
     {
-        <div class="">
-            <h1 class="invisible">Espacio</h1>
-        </div>
-        <div class="col-12 card bg-light shadow table-responsive">
-            <br />
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-center">
-                        <strong class=""> @cate.Nombre </strong>
+        foreach (var cate in ViewBag.ListCategories)
+        {
+            <div class="">
+                <h1 class="invisible">Espacio</h1>
+            </div>
+            <div class="col-12 card bg-light shadow table-responsive">
+                <br />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <strong class=""> @cate.Nombre </strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-bordered table-hover bg-white">
-                        <thead class="">
-                            <tr>
-                                <th scope="col">Ubicacion</th>
-                                <th scope="col">Posicion</th>
-                                <th scope="col">Empresa</th>
-                                <th scope="col">Fecha</th>
-                            </tr>
-                        </thead>
+                <hr />
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered table-hover bg-white">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col">Ubicacion</th>
+                                    <th scope="col">Posicion</th>
+                                    <th scope="col">Empresa</th>
+                                    <th scope="col">Fecha</th>
+                                </tr>
+                            </thead>
 
-                        @{
-                            int conteo = 0;
-                            foreach (var post in Model)
-                            {
-
-                                if (post.Categorias == cate.Nombre)
+                            @{
+                                int conteo = 0;
+                                foreach (var post in Model)
                                 {
-                                    conteo++;
-                                    <tbody>
-                                        <tr>
-                                                                    <td>@Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
-                                            <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
-                                            <td>@Html.DisplayFor(model => post.Posters)</td>
-                                            <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
-                                            <td>
-                                                @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, ciudadId = post.NombreCiudad, paisId = post.NombrePais, categoriaId = post.NombreCategoria, trabajoId = post.NombreTipoTrabajo, pais = post.Paises, calle = post.NombreCalle, ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-outline-info" })
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    if (conteo == 3)
-                                    {
-                                        break;
-                                    }
-                                }
 
+                                    if (post.Categorias == cate.Nombre)
+                                    {
+                                        conteo++;
+                                        <tbody>
+                                            <tr>
+                                                <td>@Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
+                                                <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                                <td>@Html.DisplayFor(model => post.Posters)</td>
+                                                <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                                                <td>
+                                                    @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, ciudadId = post.NombreCiudad, paisId = post.NombrePais, categoriaId = post.NombreCategoria, trabajoId = post.NombreTipoTrabajo, pais = post.Paises, calle = post.NombreCalle, ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-outline-info" })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        if (conteo == 3)
+                                        {
+                                            break;
+                                        }
+                                    }
+
+                                }
                             }
-                        }
-                    </table>
+                        </table>
+
+                    </div>
 
                 </div>
+                <div>
+                    @{
+                        int resta = cate.Cantidad - conteo;
+                        string resultado = "Ver (" + resta + ") mas";
+                        if (resta > 0)
+                        {
+                            <strong>
+                                @Html.ActionLink(resultado, "Busqueda", new { buscar = cate.Nombre, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber }, new { @class = "float-right" })
 
-            </div>
-            <div>
-                @{
-                    int resta = cate.Cantidad - conteo;
-                    string resultado = "Ver (" + resta + ") mas";
-                    if (resta > 0)
-                    {
-                        <strong>
-                            @Html.ActionLink(resultado, "Busqueda", new { buscar = cate.Nombre, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber }, new { @class = "float-right" })
-
-                        </strong>
+                            </strong>
+                        }
                     }
-                }
+                </div>
+                <br />
             </div>
-            <br />
-        </div>
 
+        }
     }
+
 
 </div>
 

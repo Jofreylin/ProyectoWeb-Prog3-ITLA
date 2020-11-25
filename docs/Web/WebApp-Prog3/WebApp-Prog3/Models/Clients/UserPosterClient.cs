@@ -221,7 +221,7 @@ namespace WebApp_Prog3.Models
         {
             try
             {
-
+                
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(originalURL);
                 client.DefaultRequestHeaders.Accept.Add(

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Persistence;
 
 namespace Api_Prog3.Controllers
 {
@@ -13,10 +14,12 @@ namespace Api_Prog3.Controllers
     public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaService _ICategoriaService;
+        private readonly ProjectDbContext _dbContext;
 
-        public CategoriaController(ICategoriaService iCategoriaService)
+        public CategoriaController(ICategoriaService iCategoriaService, ProjectDbContext db)
         {
             _ICategoriaService = iCategoriaService;
+            _dbContext = db;
         }
 
         [HttpGet]
@@ -34,7 +37,15 @@ namespace Api_Prog3.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]Categoria model)
         {
-            return Ok(_ICategoriaService.Add(model));
+            try
+            {
+                _dbContext.Categoria.Add(model);
+                _dbContext.SaveChanges();
+            }catch(Exception e)
+            {
+                return StatusCode(500, e);
+            }
+            return Ok();
         }
 
         [HttpPut]

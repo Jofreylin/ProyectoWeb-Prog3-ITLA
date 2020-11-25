@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Service;
+using Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api_Prog3.Controllers
 {
@@ -13,16 +15,19 @@ namespace Api_Prog3.Controllers
     public class PaisController : Controller
     {
         private readonly IPaisService _IPaisService;
+        private readonly ProjectDbContext _context;
 
-        public PaisController(IPaisService paisService)
+        public PaisController(IPaisService paisService, ProjectDbContext _c)
         {
             _IPaisService = paisService;
+            _context = _c;
         } 
 
         [HttpGet]
-        public ActionResult<IEnumerable<Pais>> GetAll()
+        public async Task<ActionResult<IEnumerable<Pais>>> GetAll()
         {
-            return Ok(_IPaisService.GetAll());
+            return await _context.Pais.ToListAsync();
+
         }
 
         [HttpGet("{id}")]
