@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apiGregorix", "apiGregorix\apiGregorix.csproj", "{967E6F62-AD0B-4580-94C7-DACDE729A23F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{967E6F62-AD0B-4580-94C7-DACDE729A23F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967E6F62-AD0B-4580-94C7-DACDE729A23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967E6F62-AD0B-4580-94C7-DACDE729A23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967E6F62-AD0B-4580-94C7-DACDE729A23F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FEB199A-64C5-491F-AB2A-6D16B4A090C1}
+	EndGlobalSection
+EndGlobal

@@ -3,14 +3,19 @@
 @{
     var elemento = new TipoTrabajoClient();
     var elemento2 = elemento.GetAll();
-    elemento2.OrderByDescending(x => x.Nombre);
+        elemento2.OrderByDescending(x => x.Nombre);
+    
     ViewBag.TipoTrabajo = elemento2;
 }
 <select id="Trabajo" onchange="TrabajoChange();" class="form-control">
     <option value="0" selected disabled>-- Tipo de trabajo --</option>
-    @foreach (var m in ViewBag.TipoTrabajo)
-    {
-        <option value="@m.Id">@m.Nombre</option>
-    }
+    
+    
+        @foreach (var m in ViewBag.TipoTrabajo)
+        {
+            <option value="@m.Id">@m.Nombre</option>
+        }
+    
+
 </select>
 

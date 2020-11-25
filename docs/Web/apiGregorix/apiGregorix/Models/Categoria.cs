@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model
+#nullable disable
+
+namespace apiGregorix.Models
 {
     [Table("CATEGORIA")]
-    public class Categoria
+    [Index(nameof(Nombre), Name = "UQ__CATEGORI__75E3EFCF7C426275", IsUnique = true)]
+    public partial class Categoria
     {
         public Categoria()
         {
-            Post = new HashSet<Post>();
+            Posts = new HashSet<Post>();
         }
 
         [Key]
@@ -20,12 +23,10 @@ namespace Model
         [Required]
         [StringLength(60)]
         public string Nombre { get; set; }
-        [Column("Cantidad")]
-        public int cantidad { get; set; }
-        [Column("Logo")]
+        public int Cantidad { get; set; }
         public byte[] Logo { get; set; }
 
-        [InverseProperty("NombreCategoriaNavigation")]
-        public virtual ICollection<Post> Post { get; set; }
+        [InverseProperty(nameof(Post.NombreCategoriaNavigation))]
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

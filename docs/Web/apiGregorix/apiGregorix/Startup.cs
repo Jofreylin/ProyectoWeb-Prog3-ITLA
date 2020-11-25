@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Persistence;
-using Service;
+using Microsoft.EntityFrameworkCore;
+using apiGregorix.Context;
+using Newtonsoft;
 
-namespace Api_Prog3
+namespace apiGregorix
 {
     public class Startup
     {
@@ -30,6 +30,8 @@ namespace Api_Prog3
         {
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.AddDbContext<ApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Prog3DB")));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
@@ -39,17 +41,6 @@ namespace Api_Prog3
                         );
             });
 
-            services.AddDbContext<ProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Prog3DB")));
-
-            services.AddTransient<ICategoriaService, CategoriaService>();
-            services.AddTransient<ICiudadService, CiudadService>();
-            services.AddTransient<IPaisService, PaisService>();
-            services.AddTransient<IPostService, PostService>();
-            services.AddTransient<ITipoTrabajoService, TipoTrabajoService>();
-            services.AddTransient<IUserAdminService, UserAdminService>();
-            services.AddTransient<IUserPosterService, UserPosterService>();
-
-            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,20 +51,17 @@ namespace Api_Prog3
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("AllowAll");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+                endpoints.MapControllers();
             });
         }
     }

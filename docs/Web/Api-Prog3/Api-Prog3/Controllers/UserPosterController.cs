@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Service;
+using Persistence;
 
 namespace Api_Prog3.Controllers
 {
@@ -13,10 +14,12 @@ namespace Api_Prog3.Controllers
     public class UserPosterController : Controller
     {
          private readonly IUserPosterService _IUserPosterService;
+        private readonly ProjectDbContext _dbcontext;
 
-        public UserPosterController(IUserPosterService UserPosterService)
+        public UserPosterController(IUserPosterService UserPosterService, ProjectDbContext _db)
         {
             _IUserPosterService = UserPosterService;
+            _dbcontext = _db;
         }
 
         [HttpGet]
@@ -34,7 +37,16 @@ namespace Api_Prog3.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]UserPoster model)
         {
-            return Ok(_IUserPosterService.Add(model));
+            try
+            {
+                _dbcontext.UserPoster.Add(model);
+                _dbcontext.SaveChanges();
+            }catch(Exception e)
+            {
+                return StatusCode(500, e);
+            }
+
+            return Ok();
         }
 
         [HttpPut]

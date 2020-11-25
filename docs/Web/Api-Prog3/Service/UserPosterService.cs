@@ -29,7 +29,7 @@ namespace Service
         {
             try
             {
-                _projectDbContext.Add(model);
+                _projectDbContext.UserPoster.Add(model);
                 _projectDbContext.SaveChanges();
             }catch(Exception e)
             {

@@ -23,24 +23,29 @@ namespace WebApp_Prog3.Controllers
             TipoTrabajoClient tipoTrabajoClient = new TipoTrabajoClient();
             var elementos = postClient.GetAll();
             var i = new List<Post>();
-            foreach(var e in elementos)
+            if (elementos != null)
             {
-                e.Posters = userPoster.FindPost(e.Poster);
-                e.Categorias = categoriaClient.FindCategory(e.NombreCategoria);
-                e.Ciudades = ciudadClient.FindCiudad(e.NombreCiudad);
-                e.Paises = paisClient.FindPais(e.NombrePais);
-                e.TipoTrabajos = tipoTrabajoClient.FindTipoTrabajo(e.NombreTipoTrabajo);
-                i.Add(e);
-            }
-            var v = (from a in i
-                     
-                     select a);
+                foreach (var e in elementos)
+                {
+                    e.Posters = userPoster.FindPost(e.Poster);
+                    e.Categorias = categoriaClient.FindCategory(e.NombreCategoria);
+                    e.Ciudades = ciudadClient.FindCiudad(e.NombreCiudad);
+                    e.Paises = paisClient.FindPais(e.NombrePais);
+                    e.TipoTrabajos = tipoTrabajoClient.FindTipoTrabajo(e.NombreTipoTrabajo);
+                    i.Add(e);
+                }
+                var v = (from a in i
 
+                         select a);
+
+
+                ViewBag.ListCategories = categoriaClient.GetAll().OrderBy(p => p.Nombre);
+                v = v.OrderBy(p => p.Categorias);
+                return View(v);
+            }
+
+            return View();
             
-            ViewBag.ListCategories = categoriaClient.GetAll().OrderBy(p => p.Nombre);
-            v = v.OrderBy(p => p.Categorias);
-            
-            return View(v);
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]

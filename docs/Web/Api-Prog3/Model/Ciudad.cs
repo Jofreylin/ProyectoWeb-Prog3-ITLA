@@ -24,8 +24,6 @@ namespace Model
         [Column("Nombre_Pais")]
         public int NombrePais { get; set; }
 
-        public int Cantidad { get; set; }
-
         [ForeignKey(nameof(NombrePais))]
         [InverseProperty(nameof(Pais.Ciudad))]
         public virtual Pais NombrePaisNavigation { get; set; }
