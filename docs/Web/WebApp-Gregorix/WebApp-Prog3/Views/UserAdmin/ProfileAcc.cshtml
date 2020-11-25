@@ -1,0 +1,265 @@
+﻿@using WebApp_Prog3.Models;
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    #tablecita {
+        display: block;
+        height: 200px;
+    }
+</style>
+<div class="main-panel ">
+
+    <div class="content">
+        <div class="container-fluid ">
+            <div class="row text-center">
+                @*PRIMERA CART*@
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-male"></i>
+                            </div>
+                            <p class="card-category">POSTERS</p>
+                            <h3 class="card-title">@ViewBag.CountPosters</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">warning</i>
+                                @*<a href="javascript:;">ELLA NO TE AMA</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*SEGUNDA CART*@
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-window-maximize"></i>
+                            </div>
+                            <p class="card-category">POSTS</p>
+                            <h3 class="card-title">@ViewBag.CountPosts</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">date_range</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*TERCERA CART*@
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <p class="card-category">ADMINS</p>
+                            <h3 class="card-title">@ViewBag.CountAdmins</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*CUARTA CART*@
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-building"></i>
+                            </div>
+                            <p class="card-category">CATEGORIAS</p>
+                            <h3 class="card-title">@ViewBag.CountCategorias</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">update</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            @*PRIMERA DE LA SEGUNDA FILA CART*@
+
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-success">
+                            <div class="ct-chart" id="dailySalesChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">CATEGORIA MAS UTILIZADA</h5>
+                            <p class="card-category">@ViewBag.MaxCategoria</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i>
+                            </div>
+                            <div>
+                                <strong>Todo el tiempo</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*SEGUNDA DE LA SEGUNDA FILA CART*@
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-warning">
+                            <div class="ct-chart" id="websiteViewsChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">CIUDAD CON MAS POSTS</h5>
+                            <p class="card-category">@ViewBag.MaxCityPosters</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i>
+                            </div>
+                            <div>
+                                <strong>Todo el tiempo</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*TERCERA DE LA SEGUNDA FILA CART*@
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-danger">
+                            <div class="ct-chart" id="completedTasksChart"></div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">USUARIOS REGISTRADOS</h5>
+                            <p class="card-category">@ViewBag.CountRPostersT</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i>
+
+                            </div>
+                            <div>
+                                <strong>Hoy</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            @*AQUI VA LO QUE HABLAMOS DE LA LISTA DE USERS*@
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card shadow">
+                        <div class="card-header card-header-tabs card-header-primary">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Tasks:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#adminInfo" data-toggle="tab">
+                                                <div class="text-center">
+                                                    <i class="material-icons">bug_report</i>
+                                                </div>
+                                                <div class="text-center">Info Personal</div>
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#userposterInfo" data-toggle="tab">
+                                                <div class="text-center">
+                                                    <i class="material-icons">cloud</i>
+                                                </div>
+                                                
+                                                <div class="text-center">Info Poster</div>
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="adminInfo">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td><h6 class="">Nombre: <strong>@ViewBag.Cuenta.Nombre</strong></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h6 class="">Usuario: <strong>@ViewBag.Cuenta.Usuario</strong></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h6 class="">Email: <strong>@ViewBag.Cuenta.Email</strong></h6></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h6 class="">Fecha de registro: <strong>@ViewBag.Cuenta.FechaCreacion</strong></h6></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="userposterInfo">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @Html.Partial("_PartialPageBuscadorAdmin")
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-lg-6 col-md-12">
+                    <div class="card shadow">
+                        <div class="card-header card-header-warning">
+                            <h4 class="card-title">CANTIDAD DE POSTS POR CATEGORIA</h4>
+
+                        </div>
+                        TABLE OF POSTER----------------------------------------------------------------
+                        <div>
+                            <div class="card-body table-responsive">
+                                <div id="tablecita">
+                                    <table class="table table-hover">
+                                        <thead class="text-warning">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Categoria</th>
+                                                <th>Posts</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.ListCategorias)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>@item.Nombre</td>
+                                                    <td>@item.Cantidad</td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>

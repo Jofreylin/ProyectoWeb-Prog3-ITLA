@@ -1,0 +1,191 @@
+﻿@model WebApp_Prog3.Models.UserPoster
+
+@{
+    ViewBag.Title = "Registrarse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!String.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.Message
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    ViewBag.Numero = 0;
+}
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            <div class="alert alert-warning" role="alert">
+                Ya estas logeado como Admin!<a>@Html.ActionLink(" ~Click aqui~ ", "LogOut", "UserAdmin", null, new { @class = "alert-link" })</a>Para cerrar sesion.
+            </div>
+            <hr />
+            <a>@Html.ActionLink("Administrar Cuenta", "ProfileAcc", "UserAdmin", null, new { @class = "btn btn-danger btn-lg" })</a>
+        }
+        else if (User.IsInRole("Poster"))
+        {
+            <div class="alert alert-warning" role="alert">
+                Ya estas logeado!<a>@Html.ActionLink(" ~Click aqui~ ", "LogOut", "UserPoster", null, new { @class = "alert-link" })</a>Para cerrar sesion.
+            </div>
+            <hr />
+            <a>@Html.ActionLink("Administrar Cuenta", "ProfileAcc", "UserPoster", null, new { @class = "btn btn-danger btn-lg" })</a>
+        }
+
+    }
+    else
+    {
+        <div class="row d-flex justify-content-center">
+            <div class="col-4">
+                <br />
+                <br />
+                @using (Html.BeginForm("RegistrarPoster", "UserPoster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    <div>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.NombreEmpresa, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.NombreEmpresa, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NombreEmpresa, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmarEmail, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ConfirmarEmail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmarEmail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Contra, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Contra, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Contra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmarContra, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmarContra, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmarContra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <h5>UBICACION</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NombreCalle, new { @class = "col control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.NombreCalle, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NombreCalle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NombrePais, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.NombrePais, new { @class = "form-control d-none", @id = "PaisTextBox" })
+                            @Html.Partial("_PartialCargarPaises")
+                            @Html.ValidationMessageFor(m => m.NombrePais, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NombreCiudad, htmlAttributes: new { @class = "control-label col" })
+                        @Html.TextBoxFor(m => m.NombreCiudad, new { @class = "form-control d-none", @id = "CiudadTextBox" })
+                        <div class="col-md-10">
+                            <select id="Ciudad" onchange="CiudadChange();" class="form-control">
+                            </select>
+
+                            @Html.ValidationMessageFor(m => m.NombreCiudad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-success btn-lg" value="Registrar" />
+                        </div>
+                    </div>
+
+
+
+                }
+            </div>
+        </div>
+    }
+}
+
+
+
+<script>
+        //function DropDownProductList() {
+
+        //    var idp = $("#Pais Option:Selected").val();
+
+        //    //You can check selected value using alert
+
+        //    alert(idp);
+
+        //    $
+        //    $.ajax({
+        //           url: "UpdateViewBagCiudad/" + idp,
+        //        success: function () {
+        //               $("#fufu").load("RegistrarPoster");
+        //           }
+        //       });
+        //}
+        function CiudadChange() {
+            var idp = $("#Ciudad Option:Selected").val();
+            var SDD = $("#CiudadTextBox");
+
+            if (idp == null || idp == 0 || idp == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(idp)
+                }
+            //You can check selected value using alert
+
+        }
+
+        function PaisChange() {
+            var url = '@Url.Action("UpdateViewBagCiudad", "UserPoster")';
+            var PDD = $("#Ciudad");
+            var ODD = $("#Pais").val();
+            var SDD = $("#PaisTextBox");
+            var HDD = $("#CiudadTextBox");
+            var conteo = 0;
+            $("#CiudadTextBox").val(0);
+            $.getJSON(url, { id: ODD }, function (response) {
+                PDD.empty();
+                $.each(response, function (index, item) {
+                    var p = new Option(item.Text, item.Value);
+                    PDD.append(p);
+                    conteo = conteo + 1;
+                    if (conteo == 1) {
+                        HDD.val(item.Value);
+                    }
+                });
+
+                PDD.show();
+                if (SDD == null || SDD == 0 || SDD == undefined) {
+                    SDD.val(0)
+                } else {
+                    SDD.val(ODD)
+                }
+
+            });
+        }
+
+
+</script>

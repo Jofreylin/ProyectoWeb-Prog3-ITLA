@@ -1,0 +1,148 @@
+﻿@model IEnumerable<WebApp_Prog3.Models.Post>
+@{
+    ViewBag.Title = "GestionUserPoster";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="row align-items-center justify-content-center">
+
+    <div class="">
+        <form class="">
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">ID</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.IdPoster" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nombre de la Editorial</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Empresa" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Contraseña</label>
+                <input class="form-control mx-auto d-block" type="password" placeholder="@ViewBag.Contra" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Email</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Correo" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Calle</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Calle" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Ciudad</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Ciudad" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Pais</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Pais" readonly>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Fecha de Registro</label>
+                <input class="form-control mx-auto d-block" type="text" placeholder="@ViewBag.Fecha" readonly>
+            </div>
+            <div class="form-group">
+                @*@Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+        @Html.ActionLink("close", "EliminarPost", "UserPoster", new { id = item.Id }, new { @class = "btn btn-danger material-icons" })*@
+                @Html.ActionLink("edit", "EditarPoster", "UserPoster", new { id = ViewBag.IdPoster, idPais = ViewBag.IdPais, idCiudad = ViewBag.IdCiudad, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = ViewBag.Calle }, new { @class = "btn btn-secondary material-icons" })
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="material-icons">close</i>
+                </button>
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Esta seguro de que desea eliminar esta cuenta? Se borraran todos los Posts realizados.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                @Html.ActionLink("Eliminar", "EliminarPoster", "UserPoster", new { id = ViewBag.IdPoster }, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="card shadow col-12">
+        <div class="card-header bg-white">
+            <h4 class="card-title">Post realizados por @ViewBag.Empresa</h4>
+        </div>
+        <div>
+            <div class="card-body table-responsive">
+                <div style="height:500px; display:block">
+                    <table class="table table-bordered table-hover bg-white">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Ubicacion</th>
+                                <th scope="col">Posicion</th>
+                                <th scope="col">Tipo de libro</th>
+                                <th scope="col">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var post in Model)
+                            {
+                            <tr>
+                                <td>@Html.DisplayFor(model => post.Id)</td>
+                                <td>@Html.DisplayFor(model => post.Categorias)</td>
+                                <td>@Html.DisplayFor(model => post.NombreCalle), @Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
+                                <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                                <td>@Html.DisplayFor(model => post.TipoTrabajos)</td>
+                                <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                                <td>
+                                    @Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = post.Id, categoria = post.NombreCategoria, ciudad = post.NombreCiudad, pais = post.NombrePais, tipotrabajo = post.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = post.NombreCalle, posicion = post.NombrePosicion, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter2">
+                                        <i class="material-icons">close</i>
+                                    </button>
+
+                                    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Esta seguro de que desea eliminar este Post?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    @Html.ActionLink("Eliminar", "EliminarPost", "UserPoster", new { id = post.Id }, new { @class = "btn btn-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <h6>Total de posts: <strong>@ViewBag.CantidadPosts</strong></h6>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>

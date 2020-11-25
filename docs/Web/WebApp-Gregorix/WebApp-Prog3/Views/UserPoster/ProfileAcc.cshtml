@@ -1,0 +1,194 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style>
+        #tablecita {
+            display: block;
+            height: 500px;
+        }
+    </style>
+<div class="main-panel">
+    
+    <div class="content">
+        
+        <div class="container-fluid ">
+            <div class=" row text-center">
+                @*PRIMERA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-window-maximize"></i>
+                            </div>
+                            <p class="card-category">POSTS</p>
+                            <h3 class="card-title">@ViewBag.CountPosts</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+
+                                @*<a href="javascript:;">ELLA NO TE AMA</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*SEGUNDA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <p class="card-category">EDITORIAL</p>
+                            <h3 class="card-title">@ViewBag.Cuenta.NombreEmpresa</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*TERCERA CART*@
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats shadow">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <p class="card-category">PAIS</p>
+                            <h3 class="card-title">@ViewBag.Country</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="card shadow">
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title">POSTS</h4>
+
+                </div>
+                @*TABLE OF POSTER----------------------------------------------------------------*@
+                <div>
+                    <div class="card-body table-responsive">
+                        <div id="tablecita">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <tr>
+                                        <th>Libro</th>
+                                        <th>Categoria</th>
+                                        <th>Fecha</th>
+                                        <th>Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.ListPosts)
+                                    {
+                                        <tr>
+                                            <td>@item.NombrePosicion</td>
+                                            <td>@item.Categorias</td>
+                                            <td>@item.FechaCreacion</td>
+                                            <td>
+                                                @Html.ActionLink("info", "InfoPost", "UserPoster", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-primary material-icons" })
+                                                @Html.ActionLink("edit", "EditarPost", "UserPoster", new { id = item.Id, categoria = item.NombreCategoria, ciudad = item.NombreCiudad, pais = item.NombrePais, tipotrabajo = item.NombreTipoTrabajo, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = item.NombreCalle, posicion = item.NombrePosicion, descripcion = item.Descripcion, IdPoster = item.Poster, dUrl = item.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+                                                
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Esta seguro de que desea eliminar este Post?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                @Html.ActionLink("Eliminar", "EliminarPost", "UserPoster", new { id = item.Id }, new { @class = "btn btn-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br />
+                <br />
+                <div class="card  shadow">
+                    <br />
+                    <div class="card-header bg-light">
+                        <h4 class="text-center">Info Personal</h4>
+                    </div>
+                    
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><h6 class="">Editorial: <strong>@ViewBag.Cuenta.NombreEmpresa</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Email: <strong>@ViewBag.Cuenta.Email</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Ubicacion: <strong>@ViewBag.Cuenta.NombreCalle, @ViewBag.City, @ViewBag.Country</strong></h6></td>
+                                </tr>
+                                <tr>
+                                    <td><h6 class="">Fecha de registro: <strong>@ViewBag.Cuenta.FechaCreacion</strong></h6></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        @Html.ActionLink("edit", "EditarPoster", "UserPoster", new { id = ViewBag.Cuenta.Id, idPais = ViewBag.Cuenta.NombrePais, idCiudad = ViewBag.Cuenta.NombreCiudad, correo = ViewBag.Cuenta.Email, empresa = ViewBag.Cuenta.NombreEmpresa, calle = ViewBag.Cuenta.NombreCalle }, new { @class = "btn btn-secondary material-icons" })
+                        
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter2">
+                            <i class="material-icons">close</i>
+                        </button>
+
+                        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Esta seguro de que desea eliminar su cuenta? Todos sus Posts se borraran.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        @Html.ActionLink("Eliminar", "EliminarPoster", "UserPoster", new { id = ViewBag.Cuenta.Id }, new { @class = "btn btn-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

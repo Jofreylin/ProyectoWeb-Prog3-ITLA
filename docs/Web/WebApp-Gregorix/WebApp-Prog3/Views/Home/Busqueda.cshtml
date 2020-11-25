@@ -1,0 +1,99 @@
+﻿@model List<WebApp_Prog3.Models.Post>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var grid = new WebGrid(canPage: true, rowsPerPage: 20);
+    //grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: true);
+}
+
+<br />
+<div class="row">
+    <div class="col-12">
+        @if (ViewBag.SortOrder == "Desc")
+        {
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas viejo al mas actual", "Busqueda", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha" , pageNumber = ViewBag.PageNumber})</strong>
+        }
+        else
+        {
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas actual al mas viejo", "Busqueda", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber})</strong>
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12 card bg-light shadow table-responsive">
+        <br />
+        <table class="table table-bordered table-hover bg-white ">
+            <thead class="">
+                <tr>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Ubicacion</th>
+                    <th scope="col">Libro</th>
+                    <th scope="col">Editorial</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(model => post.Categorias)</td>
+                    <td>@Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
+                    <td>@Html.DisplayFor(model => post.NombrePosicion)</td>
+                    <td>@Html.DisplayFor(model => post.Posters)</td>
+                    <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                    <td>
+                        @Html.ActionLink("Mas info", "Postularme", "Home", new { id = post.Id, ciudadId = post.NombreCiudad, paisId = post.NombrePais, categoriaId = post.NombreCategoria, trabajoId = post.NombreTipoTrabajo, pais = post.Paises, calle = post.NombreCalle , ciudad = post.Ciudades, posicion = post.NombrePosicion, tipoTrabajo = post.TipoTrabajos, descripcion = post.Descripcion, IdPoster = post.Poster, dUrl = post.DireccionUrl }, new { @class = "btn btn-outline-info" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="col-12">
+    <nav aria-label="Page navigation">
+        @{
+            double totalPages = ViewBag.TotalPages;
+            if (totalPages > 1)
+            {
+                <ul class="pagination justify-content-end">
+                    @if (ViewBag.PageNumber == 1)
+                    {
+                        <li class="page-item disabled">@Html.ActionLink("Anterior", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink("Anterior", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber - 1 }, new { @class = "page-link" })</li>
+                    }
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+
+                        if (i == ViewBag.PageNumber)
+                        {
+                            <li class="page-item active">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+                        else
+                        {
+                            <li class="page-item">@Html.ActionLink(i.ToString(), "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+
+                    }
+
+                    @if (totalPages == ViewBag.PageNumber)
+                    {
+                        <li class="page-item disabled">@Html.ActionLink("Siguiente", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink("Siguiente", "Busqueda", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber + 1 }, new { @class = "page-link" })</li>
+                    }
+
+                </ul>
+            }
+
+        }
+    </nav>
+</div>
+<br />

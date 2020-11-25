@@ -1,0 +1,20 @@
+﻿@model int?
+@using WebApp_Prog3.Models.Clients;
+@{
+    var elementoOri = new CiudadClient();
+    var elemento = elementoOri.GetAll();
+    elemento.OrderBy(x => x.Nombre);
+            var v = (from a in elemento
+                     where a.NombrePais == Model
+                     select a
+                     );
+    ViewBag.Ciudad = v.ToList();
+}
+<select id="Ciudad" onchange="eso();" class="form-control" style="display:none;">
+    <option value="0" selected disabled>-- Pais --</option>
+    @foreach (var m in ViewBag.Ciudad)
+    {
+        <option value="@m.Id">@m.Nombre</option>
+    }
+</select>
+

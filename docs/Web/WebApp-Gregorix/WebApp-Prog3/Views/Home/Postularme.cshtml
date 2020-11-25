@@ -1,0 +1,63 @@
+﻿@model WebApp_Prog3.Models.Post
+@{
+    ViewBag.Title = "Postularme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+
+    <div class="col-md-10 card-header shadow">
+        <h4>@ViewBag.Empresa</h4>
+        @if (Model.NombreCalle != null)
+        {
+            <h6>@Model.NombreCalle</h6>
+        }
+        <h6>@Model.Ciudades, @Model.Paises</h6>
+        <br />
+        @if (Model.DireccionUrl != null)
+        {
+
+            <h6>Sitio Web: <strong>@Model.DireccionUrl</strong></h6>
+            <br />
+        }
+
+        <hr />
+        <h6>@Model.NombrePosicion - @Model.TipoTrabajos</h6>
+        <hr />
+    </div>
+    <div class="col-lg-2 card-body shadow">
+        <div>
+            @if (ViewBag.Foto != null)
+            {
+                <img width="400" src="@Url.Action("GetImagePost","Home", new {id = Model.Id})" class="card-img" />
+            }
+
+        </div>
+    </div>
+
+</div>
+<div class="row card shadow">
+    <br />
+    <div class="col-md-8">
+        <div style="height:200px; overflow-y:auto">
+            <p class="text-justify">@Model.Descripcion</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <h5 class="font-italic">¿Como comprar?</h5>
+        <h6>Pide tu libro a: <strong><a href="mailto:@ViewBag.Correo">@ViewBag.Correo</a></strong></h6>
+    </div>
+    <br />
+</div>
+@if (User.Identity.Name == ViewBag.Correo)
+{
+    <br />
+    <div class="form-group float-right">
+        <div class="col-md-10">
+            @Html.ActionLink("edit", "InfoPost", "UserPoster",new { id = Model.Id, categoria = Model.NombreCategoria, ciudad = Model.NombreCiudad, pais = Model.NombrePais, tipotrabajo = Model.NombreTipoTrabajo, correo = ViewBag.Correo, empresa = ViewBag.Empresa, calle = Model.NombreCalle, posicion = Model.NombrePosicion, descripcion = Model.Descripcion, IdPoster = Model.Poster, dUrl = Model.DireccionUrl }, new { @class = "btn btn-secondary material-icons" })
+        </div>
+    </div>
+
+}
+
+
+

@@ -1,0 +1,120 @@
+﻿
+@using WebApp_Prog3.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Biblioteca</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+</head>
+<body class="bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow sticky-top">
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Panel Principal", "ProfileAcc", "UserAdmin", null, new { @class = "navbar-brand text-dark" })
+            }
+            else
+            {
+                @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "navbar-brand" })
+            }
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @if (User.IsInRole("Admin"))
+                {
+                <li class="nav-item">
+                    @Html.ActionLink("INICIO", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+                }
+                <li class="nav-item">
+                    @Html.ActionLink("Categorias", "Categorias", "Home", null, new { @class = "nav-link" })
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown mr-sm-5 ml-sm-5">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Perfil
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a>@Html.ActionLink("Perfil", "ProfileAcc", "UserAdmin", null, new { @class = "dropdown-item" })</a>
+                                <div class="dropdown-divider"></div>
+                                <a>@Html.ActionLink("LogOut", "LogOut", "UserAdmin", null, new { @class = "dropdown-item" })</a>
+                            }
+                            else if (User.IsInRole("Poster"))
+                            {
+                                <a>@Html.ActionLink("Perfil", "ProfileAcc", "UserPoster", null, new { @class = "dropdown-item " })</a>
+                                <div class="dropdown-divider"></div>
+                                <a>@Html.ActionLink("LogOut", "LogOut", "UserPoster", null, new { @class = "dropdown-item " })</a>
+                            }
+
+
+
+                        </div>
+
+                    </li>
+                }
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                @using (Html.BeginForm("Busqueda", "Home", FormMethod.Post, new { @class = "" }))
+                {
+                    @Html.TextBox("buscar", null, new { @class = "form-control mr-sm-2", @placeholder = "Algo mas especifico", @type = "search" })
+                    <button class="btn btn-outline-primary mr-sm-5" type="submit">Buscar</button>
+                }
+                @Html.ActionLink(" Publicar Libro", "CrearPost", "UserPoster", null, new { @class = "btn btn-success mr-sm-5 ml-sm-5" })
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a>@Html.ActionLink("Iniciar Sesion", "Index", "UserPoster", null, new { @class = "btn btn-outline-secondary mr-sm-2 ml-sm-5" })</a>
+                    <a>@Html.ActionLink("Registrarse", "RegistrarPoster", "UserPoster", null, new { @class = " btn btn-outline-info my-2 my-sm-0 btn-sm" })</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content min-vh-100">
+        @RenderBody()
+
+        <br />
+        <br />
+        <hr />
+        <br />
+    </div>
+    <footer class="bg-dark" style="height:300px">
+        <br />
+        <br />
+        <div class="container body-content text-center align-content-center">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="text-white">&copy; @DateTime.Now.Year</h3>
+                </div>
+
+                <div class="col-6">
+                    <div>
+
+                        <a href="https://www.facebook.com/" target="_blank"><i class="btn btn-outline bg-light fa fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank"><i class="btn btn-outline bg-light fa fa-twitter"></i></a>
+                        <a href="https://twitter.com/" target="_blank"><i class="btn btn-outline bg-light fa fa-instagram"></i></a>
+
+                    </div>
+                </div>
+
+            </div>
+</footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

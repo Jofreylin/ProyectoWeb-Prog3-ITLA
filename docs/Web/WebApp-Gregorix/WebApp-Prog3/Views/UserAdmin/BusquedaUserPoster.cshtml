@@ -1,0 +1,104 @@
+﻿@model IEnumerable<WebApp_Prog3.Models.UserPoster>
+@{
+    ViewBag.Title = "BusquedaUserPoster";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+    <div class="row">
+        <div class="col-12">
+            @Html.Partial("_PartialPageBuscadorAdmin")
+        </div>
+    </div>
+
+<br />
+<div class="row">
+    <div class="col-12">
+        @if (ViewBag.SortOrder == "Desc")
+        {
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas viejo al mas actual", "BusquedaUserPoster", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Asc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber })</strong>
+        }
+        else
+        {
+            <strong class="float-right">@Html.ActionLink("Ordenar del mas actual al mas viejo", "BusquedaUserPoster", new { buscar = ViewBag.Buscar, sortOrder = ViewBag.SortOrder == null ? "Desc" : (ViewBag.SortOrder == "Asc" ? "Desc" : "Asc"), sortBy = "Fecha", pageNumber = ViewBag.PageNumber })</strong>
+        }
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12 card bg-light shadow table-responsive">
+        <br />
+        <table class="table table-bordered table-hover bg-white">
+            <thead class="">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre Editorial</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Ubicacion</th>
+                    <th scope="col">Fecha (MM/DD/YYY)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => post.Id)</td>
+                        <td>@Html.DisplayFor(model => post.NombreEmpresa)</td>
+                        <td>@Html.DisplayFor(model => post.Email)</td>
+                        <td>@Html.DisplayFor(model => post.Ciudades), @Html.DisplayFor(model => post.Paises)</td>
+                        <td>@Html.DisplayFor(model => post.FechaCreacion)</td>
+                        <td>
+                            @Html.ActionLink("Gestionar", "GestionUserPoster", "UserAdmin", new { id = post.Id , idCiudad = post.NombreCiudad, idPais = post.NombrePais, nombreEmpresa = post.NombreEmpresa, email = post.Email, calle = post.NombreCalle, ciudad = post.Ciudades, pais = post.Paises, contra = post.Contra, fechaCreacion = post.FechaCreacion }, new { @class = "btn btn-outline-info" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="col-12">
+    <nav aria-label="Page navigation">
+        @{
+            double totalPages = ViewBag.TotalPages;
+            if (totalPages > 1)
+            {
+                <ul class="pagination justify-content-end">
+                    @if (ViewBag.PageNumber == 1)
+                    {
+                        <li class="page-item disabled">@Html.ActionLink("Anterior", "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink("Anterior", "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber - 1 }, new { @class = "page-link" })</li>
+                    }
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+
+                        if (i == ViewBag.PageNumber)
+                        {
+                            <li class="page-item active">@Html.ActionLink(i.ToString(), "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+                        else
+                        {
+                            <li class="page-item">@Html.ActionLink(i.ToString(), "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = i }, new { @class = "page-link" })</li>
+                        }
+
+                    }
+
+                    @if (totalPages == ViewBag.PageNumber)
+                    {
+                        <li class="page-item disabled">@Html.ActionLink("Siguiente", "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber }, new { @class = "page-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="page-item">@Html.ActionLink("Siguiente", "BusquedaUserPoster", new { sortOrder = ViewBag.SortOrder == null ? "Asc" : ViewBag.SortOrder, sortBy = ViewBag.SortBy == null ? "Fecha" : ViewBag.SortBy, pageNumber = ViewBag.PageNumber + 1 }, new { @class = "page-link" })</li>
+                    }
+
+                </ul>
+            }
+
+        }
+    </nav>
+</div>
+<br />
+
