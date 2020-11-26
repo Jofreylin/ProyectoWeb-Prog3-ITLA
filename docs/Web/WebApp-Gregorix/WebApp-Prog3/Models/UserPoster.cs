@@ -17,7 +17,7 @@ namespace WebApp_Prog3.Models
         [Required]
         [Column("Nombre_Empresa")]
         [StringLength(120)]
-        [Display(Name = "Nombre de la editorial")]
+        [Display(Name = "Nombre del autor")]
         public string NombreEmpresa { get; set; }
         [Required]
         [StringLength(90)]

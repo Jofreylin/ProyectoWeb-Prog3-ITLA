@@ -262,7 +262,7 @@ namespace WebApp_Prog3.Controllers
             }
             else if (c.NombreTipoTrabajo == 0)
             {
-                return CrearPost("Debes seleccionar un tipo de Trabajo.");
+                return CrearPost("Debes seleccionar un tipo de libro.");
             }
             else
             {
@@ -338,7 +338,7 @@ namespace WebApp_Prog3.Controllers
             }
             else if (c.NombreTipoTrabajo == 0)
             {
-                return EditarPost("Debes seleccionar un tipo de Trabajo.");
+                return EditarPost("Debes seleccionar un tipo de libro.");
             }
             else
             {
